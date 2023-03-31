@@ -129,17 +129,34 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.8);
             z-index: 2;
             cursor: pointer;
         }
+        .close-btn{
+            top: -10px;
+            right: -10px;
+            width: 25px;
+            height: 25px;
+            background: red;
+            color: #ffffff;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            padding:20px; 
+            border:none;
+            font-size:18px; 
+            margin-bottom: 20px;
+        }
         .notifications-area{ 
-            text-align: center; 
-            padding:20px
+            text-align: center;
+            padding:20px;
         }
         .notification-list {
             /* padding: 10px; */
             text-align: center;
+            margin-bottom: 20px;
         }
         .horizontal {
             font-size: large;
@@ -152,18 +169,30 @@
             align-items: center;
             justify-content: center;
         }
-        .horizontal div:nth-child(1){
-            width: 70%;
+        /* Notification name */
+        .horizontal div:nth-child(1){           
+            width: 60%;
             /* border: 1px solid red; */
         }
-        .horizontal div:nth-child(2){
-            width: 25%;
+        /* Time */
+        .horizontal div:nth-child(2){           
+            width: 30%;
             /* border: 1px solid black; */
         }
-        .horizontal div:nth-child(3){
-            width: 5%;
-            color: #000;
+        /* Close button */
+        .horizontal button{           
+            width: 10%;
+            top: -10px;
+            right: -10px;
+            width: 25px;
+            height: 25px;
+            background: red;
+            color: #ffffff;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
             border-radius: 50%;
+            border: none;
             /* border: 1px solid blue; */
         }
 
@@ -293,17 +322,17 @@
     
     <!-- overlay -->
     <div id="overlay" class="notifications-area">
-        <input type="button" value="X" onclick="off(1)" style="border-radius:50%; padding:15px; background-color:red; border:none; color:#FFF; font-size:18px; margin-bottom: 20px;">
+        <button onclick="off(1)" class="close-btn"> X </button>
         <!-- NOTIFICATION LIST -->
         <div id="notify-item" class="notification-list">
             <div class="horizontal">
                 <div> Breakfast O'Clock </div>
                 <div> 6:46pm </div>
-                <div><b> x </b></div>
+                <button onclick="delItem(0)"><b> x </b></button>
             </div>
         </div>
             
-        <input type="button" value="Add Top" onclick="addNotification(1)">
+        <input type="button" value="Add Top" onclick="addNotification(1)" style="margin-top: 10px;">
     </div>
 
 
@@ -360,11 +389,40 @@
             // CREATE NOTIFICATION LIST ITEM
             // Dynamically pick item from API - Can be pass item through the addNotication function
             var item = document.createElement("div");
-            item.innerHTML = "New";
+            var index = 0
+            item.innerHTML = `
+                <div id="notify-item" class="notification-list">
+                    <div class="horizontal">
+                        <div> Breakfast O'Clock </div>
+                        <div> 6:46pm </div>
+                        <button onclick="delItem(${index + 1})"><b> x </b></button>
+                    </div>
+                </div>
+            `;
             
             // APPEND ITEM TO TOP
             if (top) {
                 document.getElementById("notify-item").insertAdjacentElement("afterbegin", item);
+            }
+        }
+
+
+        function delItem (index) {
+            // (B1) GET LIST + ALL ITEMS
+            var item = document.getElementById("notify-item");
+            var allItems = document.querySelectorAll("#notify-item");
+            
+            // (B2) REMOVE FIRST ITEM
+            if (index) {
+                alert(index)
+                item.removeChild(allItems[index]);
+            }
+
+            // (B3) REMOVE LAST ITEM
+            else {
+                alert(index)
+                var last = allItems.length - 1;
+                item.removeChild(allItems[last]);
             }
         }
     </script>

@@ -4,55 +4,21 @@ const app =express()
 app.use(cors())
 // setting dynamic port
 const PORT = process.env.PORT||3000
-
+// data base
 require("./db/dbConnect")
 
 app.use(express.json());
 app.set('view engine', 'ejs');
 
-// app.get("/", function(req,res){
-//   res.render("index",{name:"Steven"})   
-// });
+const authRoutes =require("./routes/authRoutes")
+const menuRoutes =require("./routes/menuRoutes")
 
-// app.post("/login",(req,res)=>{
-//     const {email,password}=req.body
+app.use("/auth",authRoutes)
+app.use("/menu",menuRoutes )
 
-//     connection.query(`SELECT * FROM users 
-//         WHERE users.email = "${email}" and users.password = "${password}"`, 
-//         (err, result) => {
-//             if (err) {
-//                 console.error(err.message);
-//             }
-
-//             if(result.email === email){
-//                 db.each(
-//                     `SELECT * 
-//                     FROM meanu `
-//                 )
-//                 // res.render("home",{data:result})
-//             }
-//             console.log(result);
-//             });  
-        
-// })
-
-// app.post("/signup",(req,res)=>{
-//     const {email,password,role}=req.body         
-//             connection.query(`INSERT INTO users  VALUES( "${NULL}","${email}", "${password}", "${role}") `, (err, result) => {            
-//                 if(err){
-//                     console.log(err);
-//                 }
-//                 console.log(result);
-//                 // res.render("home",{data:{email:email,roles:"user"}})
-//             })  
-// });
-
-
-
-
-// app.use("/*",(req,res)=>{
-//     res.render("error")
-// })
+app.use("/*",(req,res)=>{
+    res.render("error")
+})
 
 
 

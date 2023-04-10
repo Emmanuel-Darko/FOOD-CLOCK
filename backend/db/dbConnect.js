@@ -16,5 +16,6 @@ const dbClose=()=>{
     // database close
 connection.end(console.log('Closed the database connection.'))
 }
+dbOpen()
 
 module.exports= {connection,dbOpen,dbClose}

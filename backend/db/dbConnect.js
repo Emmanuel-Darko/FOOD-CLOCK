@@ -4,7 +4,8 @@ const connection = mysql.createConnection({
     host:"",
     user:"root",
     password:"",
-    database:"food_clock"
+    database:"food_clock",
+    multipleStatements: true,
 })
 
 const dbOpen=()=>{

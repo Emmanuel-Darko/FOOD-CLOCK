@@ -1,11 +1,10 @@
 const express = require("express")
 const routes =express.Router()
-const {getAll,getOne,updateMenu,deleteOne}= require("../controller/menuController")
-const { get } = require("./authRoutes")
+const {getMenu,updateOne,updateMenu,deleteOne}= require("../controller/menuController")
 
-routes.get("/",getAll)
+routes.get("/",getMenu)
 routes.put("/",updateMenu)
-routes.get("/:id",getOne)
+routes.put("/meal",updateOne)
 routes.delete("/",deleteOne)
 
 module.exports = routes

@@ -1,24 +1,29 @@
 const {connection,dbClose,dbOpen} = require("../db/dbConnect")
 const bcrypt= require("bcryptjs")
+const {signupValidator,loginValidator}=require("../validation/validation")
 
+const callBack=(err,result,success=200,errCode=400)=>{
+    if(err){
+        console.log(err)
+        res.status(errCode).json({message:err})
+    }
+    res.status(success).json(result)
+}  
 
-
-const createUser =(req,res)=>{
-    const {email,password,role}=req.body
+const createUser = async(req,res)=>{
+    const result= await signupValidator.validateAsync(req.body)
+    const {email,password,role}= result
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
 
     connection.query(`INSERT INTO users VALUES ("${email}","${hash}","${role}")`,
-    (err,result)=>{
-        if(err){console.log(err)}
-       
-        res.send(result)
-    })   
+    callBack(err,result,201)
+  )   
 }
 
-const getUser =(req,res)=>{
-    const {email, password}=req.body
-   
+const getUser = async(req,res)=>{
+    const result= await loginValidator.validateAsync(req.body)
+    const {email, password}=result
     connection.query(`SELECT * FROM users WHERE user_email ="${email}"`,
     (err,result)=>{
         if(err){console.log(err)}
@@ -26,9 +31,9 @@ const getUser =(req,res)=>{
 
         if(userAvailable){
 
-            res.send(result)
+            res.status(200).json(result)
         }else{
-            res.send('check your password or email')
+            res.status(404).json({message:`check your password or email : ${err}`})
         }
 
     })
@@ -38,10 +43,7 @@ const getUser =(req,res)=>{
 
 const updateUser =(req,res)=>{
     const {email, password}=req.body
-   const callBack=(err,result)=>{
-    if(err){console.log(err)}
-    res.send(result)
-}
+  
     if(!email && !password){
         return
     }
@@ -68,10 +70,7 @@ const updateUser =(req,res)=>{
 const deleteUser =(req,res)=>{
     const {email}=req.body
     connection.query(`userEmail && ("DELETE FROM users WHERE user_email="${email}"`,
-    (err,result)=>{
-        if(err){console.log(err)}
-        console.log();
-    })
+   callBack(err,result))
 
 }
 

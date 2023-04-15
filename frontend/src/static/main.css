@@ -1,0 +1,20 @@
+/* #root {*/
+.App { 
+    /* max-width: 1280px; */
+    margin: 0 auto;
+    /* margin-top: 20%; */
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Sono';
+    /* border: 1px solid red; */
+}
+.card{
+    margin-top: 10%;
+}
+
+.bottom-note{
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.6);
+}

@@ -333,7 +333,7 @@
             </button>
             <div class="menu-time">Dinner</div>
             <div class="menu-option">
-                <input type="text" value="Fufu" onchange="changeFood(e)" /> 
+                <input type="text" value="Fufu" id="dinner" onchange="changeFood(e)" /> 
             </div>
         </div>
     </div>
@@ -447,8 +447,8 @@
             }
         }
 
-        function changeFood () {
-            
+        function changeFood (e) {
+            alert(e.input.value)
         }
     </script>
     

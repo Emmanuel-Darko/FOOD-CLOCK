@@ -1,5 +1,5 @@
 const {connection, dbClose, dbOpen} = require("../db/dbConnect")
-
+// const {menuValidator}=require("../validation/validation")
 const weekDay = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
 const todayDate=new Date()
     const day= todayDate.getDay()
@@ -16,12 +16,13 @@ const getMenu =(req,res)=>{
                     ORDER BY category_id`,
     (err,result)=>{
         if(err){console.log(err);}
-        res.send(result)
+        res.status(200).json(result)
     })
 }
 
 const updateMenu =(req,res)=>{
-    const weekMenu=req.body
+    // const weekMenu = await menuValidator.validateAsync(req.body)
+    const {weekMenu} = req.body
       
     connection.query(`START TRANSACTION;
         UPDATE menu_details SET item_name= "${weekMenu[0].bf}" WHERE category_id = "MC01" AND menu_day_id = "MD01";
@@ -48,7 +49,7 @@ const updateMenu =(req,res)=>{
         COMMIT;`,
     (err,result)=>{
         if(err){console.log(err);}
-        res.send(result)
+        res.status(200).json(result)
     })
 }
 
@@ -57,7 +58,7 @@ const updateOne =(req,res)=>{
     connection.query(`UPDATE menu_details SET item_name= "${item_name}" WHERE menu_day_id="${menu_day_id}" AND category_id="${category_id}"`,
     (err,result)=>{
         if(err){console.log(err);}
-        res.send(result)
+        res.status(200).json(result)
     })
 }
 
@@ -66,7 +67,7 @@ const deleteOne =(req,res)=>{
     connection.query(`DELETE FROM menu_details WHERE details_id="${id}"`,
     (err,result)=>{
         if(err){console.log(err);}
-        res.send(result)
+        res.status(200).json(result)
     })
 }
 

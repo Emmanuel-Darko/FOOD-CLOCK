@@ -10,12 +10,19 @@ const loginValidator =Joi.object({
     password:Joi.string().min(5).required(),
 })
 
-const menuValidator=Joi.object({
-    weekMenu:Joi.array().items(Joi.object()).required()
+const updateValidator =Joi.object({
+    oldPassword:Joi.string().min(5).required(),
+    password:Joi.string().min(5).required(),
 })
+
+
+// const menuValidator=Joi.array({
+//     weekMenu:Joi.object().required()
+// })
 
 module.exports={
   signupValidator,
   loginValidator,
-    menuValidator
+updateValidator
+    // menuValidator
 }

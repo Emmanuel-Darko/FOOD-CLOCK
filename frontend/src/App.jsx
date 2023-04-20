@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import MainContextProvider from './context/MainContextProvider';
 
 import Landing from './routes/Landing';
 import SignIn from './routes/Signin';
 import SignUp from './routes/Signup';
 import Home from './routes/Home';
+import Counter from './routes/Counter';
+import Protected from './routes/Protected';
 
 const router = createBrowserRouter([
   {
@@ -27,12 +30,29 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Home />,
+    element: 
+    <Protected> 
+      <Home /> 
+    </Protected>,
+    // errorElement: <ErrorPage />,
+  },
+  {
+    path: "/count",
+    element: <Counter />,
     // errorElement: <ErrorPage />,
   },
 ]);
 
+
 function App() {
+
+  // const signin = () => {
+  //   setIsSignedIn(true)
+  // }
+  // const signout = () => {
+  //   setIsSignedIn(false)
+  // }
+
 
   return (
     <RouterProvider router={router} />

@@ -1,13 +1,27 @@
-import { useState } from 'react'
-import appLogo from '../assets/foodclock.png'
+import { useContext, useState } from 'react'
 import '../static/main.css'
 import {MenuBook, NotificationsActive} from '@mui/icons-material';
 import {Button} from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../context/AuthContext";
+
+import appLogo from '../assets/foodclock.png'
 import foodback from '../assets/foodback.svg'
 
 const Landing = () => {
-  const [count, setCount] = useState(0)
+  const navigate = useNavigate()
+  const {isSignedIn} = useContext(AuthContext)
+
+  const handleClick = () => {
+    console.log("isSignedIn: ", isSignedIn)
+    if(isSignedIn == true){
+      navigate("/home")
+    }
+    else{
+      navigate("/signin")
+    }
+  }
 
   return (
     <div className="App">
@@ -33,11 +47,14 @@ const Landing = () => {
       </div> */}
 
       <div style={{marginTop:'50px'}}>
-        <Link to="/signin">
-          <Button variant="outlined" size="medium" sx={{border: '1px solid #81CF01', color:'#555'}}>
-              Get started
-          </Button>
-        </Link>
+        <Button 
+          variant="outlined" 
+          size="medium" 
+          sx={{border: '1px solid #81CF01', color:'#555'}}
+          onClick={handleClick}
+        >
+            Get started
+        </Button>
       </div>
 
       {/* Food back image SVG */}

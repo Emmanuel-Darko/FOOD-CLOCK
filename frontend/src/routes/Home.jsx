@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {Badge, Box, Paper, Stack} from '@mui/material';
 import {Notifications} from '@mui/icons-material'
 import { styled } from '@mui/material/styles';
@@ -9,7 +9,6 @@ import foodback from '../assets/foodback.svg'
 import '../static/home.css'
 
 const Home = () => {
-
     const [todayMenu, setTodayMenu] = useState([])
 
     const getMenu = async() => {

@@ -1,5 +1,4 @@
-import React,{useState} from 'react';
-import Avatar from '@mui/material/Avatar';
+import React,{useContext, useState} from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -7,18 +6,18 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as Link2, useNavigate } from 'react-router-dom';
-import appLogo from '../assets/foodclock.png'
-
 import LoadingButton from '@mui/lab/LoadingButton'
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-  import 'react-toastify/dist/ReactToastify.css';
+
+import appLogo from '../assets/foodclock.png'
 import { Checkbox } from '@mui/material';
+import { AuthContext } from '../context/AuthContext';
 
 function Copyright(props) {
   return (
@@ -36,6 +35,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Signin() {
+  const {setSignedIn} = useContext(AuthContext)  
   const navigate = useNavigate()
   const regex = /^\S+@\S+\.\S+$/;
   const [loading, setLoading] = useState(false)
@@ -71,13 +71,14 @@ export default function Signin() {
         "email": email.value,
         "password": pass.value
       }
-      const serverRes = await axios.post('http://192.168.1.97:3000/auth/login', req )
+      const serverRes = await axios.post('http://192.168.1.42:3000/auth/login', req )
       console.log(serverRes.data)
       if(serverRes.status == 200){
         toast.success("Success!", {
           position: toast.POSITION.BOTTOM_CENTER
         });
         setLoading(false)
+        setSignedIn(true)
         console.log("TESTING 1")
         navigate("/home")
       }else{
@@ -89,12 +90,12 @@ export default function Signin() {
       }
 
     }catch(err){
-      console.log("Server Error", err.message)
-      toast.error(err.message, {
+      console.log("Server Error...", err)
+      console.log("TESTING 3")
+      setLoading(false)
+      toast.error(err.response?.data.message ? err.response.data.message : err.message, {
         position: toast.POSITION.BOTTOM_CENTER
       });
-      setLoading(false)
-      console.log("TESTING 3")
     }
   }
 

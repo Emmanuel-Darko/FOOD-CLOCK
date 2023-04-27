@@ -1,28 +1,20 @@
-import React,{useState} from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link as Link2, useNavigate } from 'react-router-dom';
-import appLogo from '../assets/foodclock.png'
-
+import React,{useContext, useEffect, useState} from 'react';
+import {Button, Box, CssBaseline, Container, Grid, TextField, Typography
+} from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton'
-import { ToastContainer, toast } from 'react-toastify';
-import axios from 'axios';
-  import 'react-toastify/dist/ReactToastify.css';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link as Link2, useLocation, useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { AuthContext } from '../context/AuthContext';
+import appLogo from '../assets/foodclock.png'
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'© '}
-      {/* <Link color="inherit" href="https://mui.com/"> */}
         A Maxim Nyansa Food Schedule
-      {/* </Link>{' '} */}
-      {/* {new Date().getFullYear()} */}
       {'.'}
     </Typography>
   );
@@ -31,12 +23,14 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Signup() {
+  const { signup, isSignedIn, loading, setLoading } = useContext(AuthContext)
+  const [localLoader, setLocalLoader] = useState(false)
   const navigate = useNavigate()
+  const {state} = useLocation()
+  
+  // For testing email string
   const regex = /^\S+@\S+\.\S+$/;
-  const [loading, setLoading] = useState(false)
-  const [toastMessage, setToastMessage] = useState('')
-  const notify = (message) => toast(message);
-
+  
   const [email, setEmail] = useState({
     value: '',
     error: false,
@@ -66,40 +60,31 @@ export default function Signup() {
     setConfirmPass({...confirmPass, value:e.target.value, error: (e.target.value === pass.value && e.target.value.length >= 5) ? false : true})
   }
   
+  const req = {
+    "email": email.value,
+    "password": pass.value
+  }
   // Form Submission
-  const handleSubmit = async(e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     setLoading(true)
-
-    // Axios post request
-    try{
-      const req = {
-        "email": email.value,
-        "password": pass.value
-      }
-      const serverRes = await axios.post('http://192.168.1.97:3000/auth/signup', req )
-      console.log(serverRes.data)
-      if(serverRes.status == 201){
-        toast.success("Success!", {
-          position: toast.POSITION.BOTTOM_CENTER
-        });
-        setLoading(false)
-        navigate("/home")
-      }else{
-        toast.error(err.response.data.message, {
-            position: toast.POSITION.BOTTOM_CENTER
-        });
-        setLoading(false)
-      }
-
-    }catch(err){
-      console.log("Server Error...", err)
-      setLoading(false)
-      toast.error(err.response?.data.message ? err.response.data.message : err.message, {
-        position: toast.POSITION.BOTTOM_CENTER
-      });
+    let status = signup(req)
+    if (status === 'true'){
+      navigate( state?.path || "/home")
+    }
+    else{
+      // return
     }
   }
+
+  useEffect(() => {
+    if(isSignedIn)
+      navigate( state?.path || "/home" )
+  }, [isSignedIn])
+  
+  useEffect(() => {
+    setLocalLoader(loading)
+  }, [loading])
 
   return (
     <ThemeProvider theme={theme}>
@@ -126,8 +111,8 @@ export default function Signup() {
               id="email"
               label="Email Address"
               name="email"
-              autoComplete="email"
-              autoFocus
+              // autoComplete="email"
+              // autoFocus
               value={email.value}
               onChange={handleEmailChange}
               error={email.error}
@@ -141,7 +126,7 @@ export default function Signup() {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              // autoComplete="current-password"
               value={pass.value}
               onChange={handlePassChange}
               error={pass.error}
@@ -163,9 +148,9 @@ export default function Signup() {
             />
 
             {
-              loading ?
+              localLoader ?
                 <LoadingButton 
-                  loading
+                  loading={localLoader}
                   variant="contained"
                   color='primary'
                   sx={{ mt: 3, mb: 2, mr: 0, ml:0, backgroundColor:'#81CF01',display:'flex',width:'100%'}}

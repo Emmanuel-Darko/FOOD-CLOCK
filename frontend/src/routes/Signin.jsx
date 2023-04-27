@@ -1,33 +1,21 @@
-import React,{useContext, useState} from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import React, { useContext, useEffect, useState } from 'react';
+import {Button, Box, Checkbox, CssBaseline, Container, FormControlLabel, 
+  Link, Grid, TextField, Typography
+} from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link as Link2, useNavigate } from 'react-router-dom';
-import LoadingButton from '@mui/lab/LoadingButton'
-import { ToastContainer, toast } from 'react-toastify';
+import { Link as Link2, useNavigate, useLocation } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
 
 import appLogo from '../assets/foodclock.png'
-import { Checkbox } from '@mui/material';
 import { AuthContext } from '../context/AuthContext';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'© '}
-      {/* <Link color="inherit" href="https://mui.com/"> */}
-        A Maxim Nyansa Food Schedule
-      {/* </Link>{' '} */}
-      {/* {new Date().getFullYear()} */}
-      {'.'}
+      A Maxim Nyansa Food Schedule
     </Typography>
   );
 }
@@ -35,10 +23,13 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Signin() {
-  const {setSignedIn} = useContext(AuthContext)  
+  const { login, isSignedIn, loading, setLoading } = useContext(AuthContext)
+  const [localLoader, setLocalLoader] = useState(false)
   const navigate = useNavigate()
+  const {state} = useLocation()
+
+  // Regex for testing email string
   const regex = /^\S+@\S+\.\S+$/;
-  const [loading, setLoading] = useState(false)
 
   const [email, setEmail] = useState({
     value: '',
@@ -54,54 +45,43 @@ export default function Signin() {
 
   // Change Handlers
   const handleEmailChange = (e) => {
-    setEmail({...email, value:e.target.value, error: regex.test(e.target.value) ? false : true })
+    setEmail({ ...email, value: e.target.value, error: regex.test(e.target.value) ? false : true })
   }
   const handlePassChange = (e) => {
-    setPass({...pass, value:e.target.value, error: e.target.value.length >= 5 ? false : true})
+    setPass({ ...pass, value: e.target.value, error: e.target.value.length >= 5 ? false : true })
+  }
+
+  // user final inputs
+  const req = {
+    "email": email.value,
+    "password": pass.value
   }
 
   // Form Submission
-  const handleSubmit = async(e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     setLoading(true)
-
-    // Axios post request
-    try{
-      const req = {
-        "email": email.value,
-        "password": pass.value
-      }
-      const serverRes = await axios.post('http://192.168.1.42:3000/auth/login', req )
-      console.log(serverRes.data)
-      if(serverRes.status == 200){
-        toast.success("Success!", {
-          position: toast.POSITION.BOTTOM_CENTER
-        });
-        setLoading(false)
-        setSignedIn(true)
-        console.log("TESTING 1")
-        navigate("/home")
-      }else{
-        toast.error(err.response.data.message, {
-            position: toast.POSITION.BOTTOM_CENTER
-        });
-        setLoading(false)
-        console.log("TESTING 2")
-      }
-
-    }catch(err){
-      console.log("Server Error...", err)
-      console.log("TESTING 3")
-      setLoading(false)
-      toast.error(err.response?.data.message ? err.response.data.message : err.message, {
-        position: toast.POSITION.BOTTOM_CENTER
-      });
+    let status = login(req)
+    if (status === 'true'){
+      navigate( state?.path || "/home")
+    }
+    else{
+      // return
     }
   }
 
+  useEffect(() => {
+    if(isSignedIn)
+      navigate( state?.path || "/home" )
+  }, [isSignedIn])
+
+  useEffect(() => {
+    setLocalLoader(loading)
+  }, [loading])
+
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs" style={{padding:'0 3rem'}}>
+      <Container component="main" maxWidth="xs" style={{ padding: '0 3rem' }}>
         <CssBaseline />
         <Box
           sx={{
@@ -111,7 +91,7 @@ export default function Signin() {
             alignItems: 'center',
           }}
         >
-          <img src={appLogo} style={{height:'7em', willChange:'filter'}} className="logo" alt="App logo" />
+          <img src={appLogo} style={{ height: '7em', willChange: 'filter' }} className="logo" alt="App logo" />
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
@@ -125,7 +105,7 @@ export default function Signin() {
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              // autoFocus
               value={email.value}
               onChange={handleEmailChange}
               error={email.error}
@@ -146,46 +126,46 @@ export default function Signin() {
             //   helperText={pass.error && pass.errorMessage}
             />
             <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
             />
 
-            {
-              loading ?
-                <LoadingButton 
-                  loading
-                  variant="contained"
-                  color='primary'
-                  sx={{ mt: 3, mb: 2, mr: 0, ml:0, backgroundColor:'#81CF01',display:'flex',width:'100%'}}
-                >
-                  &emsp;
-                </LoadingButton>
+{
+            localLoader ?
+              <LoadingButton
+                loading={localLoader}
+                variant="contained"
+                color='primary'
+                sx={{ mt: 3, mb: 2, mr: 0, ml: 0, backgroundColor: '#81CF01', display: 'flex', width: '100%' }}
+              >
+                &emsp;
+              </LoadingButton>
               :
 
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  disabled = {email.error || !email.value || !pass.value}
-                  sx={{ mt: 3, mb: 2, color:'#FFF',backgroundColor:'#81CF01' }}
-                >
-                  Sign In
-                </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                disabled={email.error || !email.value || !pass.value}
+                sx={{ mt: 3, mb: 2, color: '#FFF', backgroundColor: '#81CF01' }}
+              >
+                Sign In
+              </Button>
             }
 
             <Grid container>
-                <Grid item sm>
-                    <Link href="#" variant="body2">
-                    Forgot password?
-                    </Link>
-                </Grid>
-                <Grid item sm>
-                    <Link2 to="/signup">
-                    <span style={{fontFamily:'monospace',fontSize:'14px',textDecoration:'underline'}}>
-                        {"Don't have an account? Sign Up"}
-                    </span>
-                    </Link2>
-                </Grid>
+              <Grid item sm>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item sm>
+                <Link2 to="/signup">
+                  <span style={{ fontFamily: 'monospace', fontSize: '14px', textDecoration: 'underline' }}>
+                    {"Don't have an account? Sign Up"}
+                  </span>
+                </Link2>
+              </Grid>
             </Grid>
           </Box>
         </Box>
@@ -193,7 +173,6 @@ export default function Signin() {
 
         {/* Toast Notification */}
         <ToastContainer />
-
       </Container>
     </ThemeProvider>
   );

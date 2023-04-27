@@ -1,0 +1,20 @@
+* wrap home menu in a Memo since meal changes once a day
+
+Pages
+******************
+1. Landing page     ✔
+2. Sign in page     ✔
+3. Sign up page     ✔
+4. Home(Menu Page)  ✔
+6. Admin Edit Menu Page
+7. Add Menu Page
+8. Push notification and overlay
+9. Suggestion Page
+
+Functionality
+******************
+1. Authentication   ✔
+2. Session storage  ✔
+3. User Routing and Protected routes  ✔
+4. Admin protected routes
+5. PWA

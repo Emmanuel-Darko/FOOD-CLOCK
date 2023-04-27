@@ -3,7 +3,6 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import MainContextProvider from './context/MainContextProvider';
 
 import Landing from './routes/Landing';
 import SignIn from './routes/Signin';
@@ -38,22 +37,16 @@ const router = createBrowserRouter([
   },
   {
     path: "/count",
-    element: <Counter />,
+    element: 
+    <Protected> 
+      <Counter />
+    </Protected>,
     // errorElement: <ErrorPage />,
   },
 ]);
 
 
 function App() {
-
-  // const signin = () => {
-  //   setIsSignedIn(true)
-  // }
-  // const signout = () => {
-  //   setIsSignedIn(false)
-  // }
-
-
   return (
     <RouterProvider router={router} />
   )

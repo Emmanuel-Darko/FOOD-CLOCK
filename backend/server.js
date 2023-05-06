@@ -1,23 +1,22 @@
 const express =require("express")
 const cors =require("cors")
 const app =express()
-app.use(cors())
+require("dotenv").config()
 // setting dynamic port
 const PORT = process.env.PORT||3000
-// data base
-require("./db/dbConnect")
+app.use(cors())
 
 app.use(express.json());
-app.set('view engine', 'ejs');
 
 const authRoutes =require("./routes/authRoutes")
 const menuRoutes =require("./routes/menuRoutes")
 
+
 app.use("/auth",authRoutes)
 app.use("/menu",menuRoutes )
 
-app.use("/*",(req,res)=>{
-    res.render("error")
+app.use("*",(req,res)=>{S
+    res.status(404).json({message:"error 4040, Page not found"})
 })
 
 

@@ -1,10 +1,12 @@
 const express = require("express")
 const routes =express.Router()
-const {getMenu,updateOne,updateMenu,deleteOne}= require("../controller/menuController")
+const menuController= require("../controller/menuController")
+const validateToken =require("../middleware/tokenValidator")
 
-routes.get("/",getMenu)
-routes.put("/",updateMenu)
-routes.put("/meal",updateOne)
-routes.delete("/",deleteOne)
+routes.use(validateToken)
+routes.get("/",menuController.getTodayMenu)
+routes.put("/",menuController.updateWeekMenu)
+routes.put("/meal",menuController.updateMenuItem)
+routes.delete("/",menuController.deleteMenuItem)
 
 module.exports = routes

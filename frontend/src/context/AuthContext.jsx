@@ -23,7 +23,7 @@ const useAuth = () => {
 
         login : async(req) =>{
             try{
-                const authRes = await axios.post('http://192.168.1.42:3000/auth/login', req)
+                const authRes = await axios.post('http://192.168.1.53:3000/auth/login', req)
                 if(authRes.status == 200){
                     toast.success("Success!", {
                         position: toast.POSITION.BOTTOM_CENTER
@@ -54,7 +54,7 @@ const useAuth = () => {
 
         signup : async(req) =>{
             try{
-                const authRes = await axios.post('http://192.168.1.42:3000/auth/signup', req)
+                const authRes = await axios.post('http://192.168.1.53:3000/auth/signup', req)
                 console.log("authRes", authRes)
                 if(authRes.status == 201){
                     toast.success("Success!", {

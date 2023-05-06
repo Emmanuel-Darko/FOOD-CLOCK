@@ -16,7 +16,7 @@ const Home = () => {
     const { logout } = useContext(AuthContext)
 
     const getMenu = async() => {
-        const serverRes = await axios.get('http://192.168.1.42:3000/menu')
+        const serverRes = await axios.get('http://192.168.1.53:3000/menu')
         console.log(serverRes.data)
         setTodayMenu(serverRes.data)
     }
@@ -119,7 +119,7 @@ const Home = () => {
                         bgcolor: '#757575',
                       }
                     }
-                  }}
+                }}
             >
                 {actions.map((action) => (
                     <SpeedDialAction

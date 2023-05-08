@@ -16,9 +16,10 @@
                         :inputActive="inputItem.fieldActive" :toggleInputActive="toggleInputActive" :index="index" :clearActive="this.clearActive"
                     />
                 </div>
-                <div class="btn-container flex-center">
-                    <button class="flex-center">SIGN UP</button>
-                </div>
+                    <button class="home-btn btn flex-center">
+                        <span>SIGN UP</span>
+                    </button>
+                
                 
             </form>
         </main>
@@ -79,55 +80,39 @@ import InputField from '../components/InputField.vue';
 </script>
 
 <style lang="css" scoped>
-.signup-page{
-    
+.signup-page{  
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     height: 100%;
     width: 100%;
+    transition: all .3s ease-in-out;
 }
 .starter-page-header{
     font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 30px;
-line-height: 36px;
-text-align: center;
-color: #000000;
-justify-content: space-between;
-background: #000;
-width: 100%;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 36px;
+    text-align: center;
+    color: #000000;
+    justify-content: space-around;
+    /* background: #000; */
+    width: 100%;
+}
+
+.starter-page-header a{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: right;
+    color: #5DB075;
 }
 .signup-form .input-container{
     flex-direction: column;
     gap: 16px;
+    margin-bottom:20px;
     
 }
-.input-container{
-    margin-bottom:18px;
-}
-.signup-form button{
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: 0.1px;
-    background: transparent;
-    border: none;
-    color: #FFFFFF;
-    width: 100%;
-    height: 100%;
-    background: #a63f3f;
 
-}
-.btn-container{
-    
-    background: #5DB075;
-    box-shadow: 0px 8px 20px rgba(97, 62, 234, 0.32);
-    border-radius: 6px;
-    width: 100%;
-    flex-direction: column;
-    height: 56px;
-    width: 343px;
-      
 
-}
 </style>

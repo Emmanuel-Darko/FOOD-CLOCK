@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+a{
+  text-decoration: none;
+}
+
 .food-clock.light-mode{
   --background-color: #E3E9D1;
   --text-color:#000000;
@@ -30,6 +34,28 @@ body{
   background-color: #000000;
 }
 
+.btn{
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  background: #5DB075;
+  box-shadow: 0px 8px 20px rgba(97, 62, 234, 0.32);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  justify-content: center;
+  height: 56px;
+  transition: all 0.3s ease-in-out;
+}
+
+.home-btn{
+    width: 343px;
+}
+
+.home-btn:hover{
+  background: #348a4c;
+}
 /* @media (min-width: 1024px) {
   body {
    flex-direction: row;

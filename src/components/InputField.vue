@@ -1,7 +1,7 @@
 <template>
-    <fieldset class="input-field" v-on:focusout="clearActive">
-        <legend>
-            {{ inputActive?placeholder: null }}
+    <fieldset class="input-field flex-center" v-on:focusout="clearActive">
+        <legend v-show="inputActive">
+            {{placeholder}}
         </legend>
         <input  :type="inputType" :placeholder="inputActive? null : placeholder" v-on:focus="toggleInputActive(index)"/>
     
@@ -42,6 +42,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
 .input-field{
     font-style: normal;
     font-weight: 500;
@@ -52,23 +53,24 @@ export default {
     border: 0.5px solid #A6AAB4;
     border-radius: 6px;
     width: 100%;
-    /* background: #000; */
     position: relative;
-    height: 56px;
     width: 343px;
-    padding: 16px 20px;
+    padding:16px 20px;
+ 
+}
 
-
+.input-field legend{
+    transition: all .3s ease-in-out;
 
 }
 .input-field input{
     border: none;
     background-color: var(--background-color);
     outline:none;
-    /* background: #8d3636; */
+    flex:1;
     width:100%;
-    height: 100%
-  
+    height: 24px;
+ /* background: #000; */
 }
 .input-field .noshow{
     display: none;
@@ -77,8 +79,6 @@ export default {
 .input-field .show{
     cursor: pointer;
     z-index: 99;
-    font-style: normal;
-    font-weight: 500;
     font-size: 14px;
     line-height: 18px;
     text-align: right;
@@ -88,6 +88,7 @@ export default {
     top: 50%;
     right: 22px;
     transform: translateY(-50%);
+
 }
 .input-field .show:hover{
     color: #348a4c;

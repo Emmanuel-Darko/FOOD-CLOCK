@@ -33,23 +33,8 @@
 }
 .home-btn{
 width:190px;
-height: 56px;
-background: #5DB075;
-box-shadow: 0px 8px 20px rgba(97, 62, 234, 0.32);
-border-radius: 6px;
-font-weight: 600;
-font-size: 16px;
-line-height: 24px;
-text-align: center;
-letter-spacing: 0.1px;
-color: #FFFFFF;
-border: none;
-transition: all 0.3s ease-in-out;
+}
 
-}
-.home-btn:hover{
-    background: #348a4c;
-}
 
 .banner{
 width: 276px;

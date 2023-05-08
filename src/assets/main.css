@@ -1,35 +1,46 @@
-@import './base.css';
+*{
+  box-sizing: border-box;
+}
+
+.food-clock.light-mode{
+  --background-color: #E3E9D1;
+  --text-color:#000000;
+}
+.food-clock.dark-mode{
+  --background-color:#4c4a4a;
+  --text-color:#FFFFFF;
+}
+/* setting page layout and major font style in the body */
+body{
+  font-family: 'Sarabun', sans-serif;
+  font-weight: normal;
+  flex-direction: column;
+  margin: 0;
+  background-color: #282626;
+}
 
 #app {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  flex-direction: column;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #000000;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
   body {
-    display: flex;
-    place-items: center;
+   flex-direction: row;
   }
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+} */
+
+/** utility classes. classes that prevent repeatition of styles. **/
+
+/* center items using flex "u can specify the flow in ur styles" */
+.flex-center{
+  display: flex;
+  place-items: center;
 }

@@ -1,22 +1,32 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+// import { RouterLink, RouterView } from 'vue-router';
+import FooterComponent from './components/FooterComponent.vue';
+
+
 </script>
 
 <template>
-  <header>
-   <nav>
-      <ul>
-        <li><router-link to="/">Landing</router-link></li>
-        <li><router-link to="/login">Login</router-link></li>
-        <li><router-link to="/signup">Register</router-link></li>
-        <li><router-link to="/menu">Menu</router-link></li>
-      </ul>
-   </nav>
-  </header>
+  <div class="food-clock flex-center light-mode">
 
-  <RouterView />
+    <RouterView />
+   <FooterComponent/>
+  </div>
 </template>
 
 <style scoped>
+.food-clock{
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  width: 100%;
+  background: var(--background-color);
+  position: relative;
+}
 
+@media screen and (min-width: 425px) {
+  .food-clock{
+    max-width: 425px;
+  }
+  
+}
 </style>

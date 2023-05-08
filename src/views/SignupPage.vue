@@ -1,6 +1,6 @@
 <template>
-    <div class="signup-page flex-center">
-        <header class="starter-page-header flex-center">
+    <div class="auth-page flex-center">
+        <header class="auth-page-header flex-center">
             <span></span>
 
             <h1>Sign Up</h1>
@@ -8,7 +8,7 @@
 
         </header>
         <main>
-            <form class="page-form signup-form">
+            <form class="page-form auth-form">
 
                 <div class="input-container flex-center">
                     <InputField v-for="(inputItem,index) in inputFieldData" :toggleShowPassword="this.toggleShowPassword" 
@@ -80,39 +80,7 @@ import InputField from '../components/InputField.vue';
 </script>
 
 <style lang="css" scoped>
-.signup-page{  
-    flex-direction: column;
-    justify-content: space-around;
-    height: 100%;
-    width: 100%;
-    transition: all .3s ease-in-out;
-}
-.starter-page-header{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 30px;
-    line-height: 36px;
-    text-align: center;
-    color: #000000;
-    justify-content: space-around;
-    /* background: #000; */
-    width: 100%;
-}
 
-.starter-page-header a{
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    text-align: right;
-    color: #5DB075;
-}
-.signup-form .input-container{
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom:20px;
-    
-}
 
 
 </style>

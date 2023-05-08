@@ -60,7 +60,7 @@ export default {
 }
 
 .input-field legend{
-    transition: all .3s ease-in-out;
+    
 
 }
 .input-field input{

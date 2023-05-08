@@ -19,6 +19,7 @@
                     <button class="home-btn btn flex-center">
                         <span>SIGN UP</span>
                     </button>
+                    <p class="auth-alternate-text">Already registered? <router-link to="/login">Login</router-link></p>
                 
                 
             </form>

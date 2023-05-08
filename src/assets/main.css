@@ -96,6 +96,19 @@ body{
   color: #A6AAB4;
   ;
 }
+
+.auth-alternate-text{
+  color: #5DB075;
+  text-align: center;
+}
+.auth-alternate-text a{
+  color:#5DB075;
+  transition: all .3s ease-in-out;
+}
+
+.auth-alternate-text a:hover{
+  color:#348a4c;
+}
 /* @media (min-width: 1024px) {
   body {
    flex-direction: row;

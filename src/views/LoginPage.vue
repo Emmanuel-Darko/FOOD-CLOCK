@@ -19,8 +19,18 @@
                     />
                 </div>
                     <button class="home-btn btn flex-center">
-                        <span>Login</span>
+                        <span>LOGIN</span>
                     </button>
+                    <p class="auth-alternate-text flex-center">
+                        <span>
+                            <router-link to="/">Forgot password</router-link>
+                        </span>
+                        <span>
+                            Not registered? <router-link to="/signup">Sign Up</router-link>
+                        </span>
+                        
+                    </p>
+
                 
                 
             </form>
@@ -81,5 +91,8 @@ import InputField from '../components/InputField.vue';
 }
 .auth-logo{
 width: 100px;
+}
+.auth-alternate-text{
+ justify-content: space-between;
 }
 </style>

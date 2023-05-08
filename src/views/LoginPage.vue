@@ -19,7 +19,7 @@
                     />
                 </div>
                     <button class="home-btn btn flex-center">
-                        <span>SIGN UP</span>
+                        <span>Login</span>
                     </button>
                 
                 

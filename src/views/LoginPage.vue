@@ -30,9 +30,6 @@
                         </span>
                         
                     </p>
-
-                
-                
             </form>
         </main>
     </div>

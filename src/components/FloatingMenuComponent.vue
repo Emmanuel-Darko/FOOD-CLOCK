@@ -6,7 +6,7 @@
             <li><router-link to="/">Logout</router-link></li>
         </ul>
 
-        <button v-on:click="toggleActiveMenu" class="menu-btn flex-center" :class="{active:menuActive}">
+        <button @click.prevent="toggleActiveMenu" class="menu-btn flex-center" :class="{active:menuActive}">
             <span></span>
         </button>
         
@@ -93,9 +93,10 @@ export default {
     position:relative;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.616);
     padding: 0;
     transition: all .3s ease-in-out;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.616);
+    z-index: 999;
 }
 
 .menu-btn span{
@@ -103,6 +104,7 @@ export default {
     height: 4px;
     
     background: transparent;
+    transition: all .3s ease-in-out;
     
 }
 
@@ -113,6 +115,7 @@ export default {
     width: 100%;
     height: 4px;
     left: 0;
+    transition: all .3s ease-in-out;
 } 
 .menu-btn.active span::after{
     bottom: 0px;
@@ -135,7 +138,7 @@ export default {
     background: #348a4c;
 }
 .menu-btn:hover{
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.616);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.616);
 }
 
 .menu-btn.active{

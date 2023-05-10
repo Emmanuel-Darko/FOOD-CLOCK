@@ -10,7 +10,7 @@
         </header>
         <img class="auth-logo" src="/images/homeLogo.svg"/>
         <main>
-            <form class="page-form auth-form">
+            <form  @submit.prevent="handleLogin" class="page-form auth-form">
 
                 <div class="input-container flex-center">
                     <InputField v-for="(inputItem,index) in inputFieldData" :toggleShowPassword="this.toggleShowPassword" 
@@ -18,7 +18,7 @@
                         :inputActive="inputItem.fieldActive" :toggleInputActive="toggleInputActive" :index="index" :clearActive="this.clearActive"
                     />
                 </div>
-                    <button class="home-btn btn flex-center">
+                    <button type="submit" class="home-btn btn flex-center">
                         <span>LOGIN</span>
                     </button>
                     <p class="auth-alternate-text flex-center">
@@ -37,6 +37,7 @@
 
 <script>
 import InputField from '../components/InputField.vue';
+import router from '@/router'
     export default {
         components:{
             InputField
@@ -75,7 +76,11 @@ import InputField from '../components/InputField.vue';
                 this.inputFieldData.map((item) => {
                     item.fieldActive = false
                 })
+            },
+            handleLogin(){
+                router.replace('/menu')
             }
+
         }
     }
 </script>

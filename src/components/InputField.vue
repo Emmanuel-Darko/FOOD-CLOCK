@@ -1,8 +1,10 @@
 <template>
     <fieldset class="input-field flex-center" v-on:focusout="clearActive">
-        <legend v-show="inputActive">
-            {{placeholder}}
-        </legend>
+        <Transition appear-active-class="fade">
+            <legend v-show="inputActive">
+                {{placeholder}}
+            </legend>
+        </Transition>
         <input  :type="inputType" :placeholder="inputActive? null : placeholder" v-on:focus="toggleInputActive(index)"/>
     
             <span v-on:click="toggleShowPassword" :class="showBtn">show</span>
@@ -13,7 +15,7 @@
 export default {
     name: 'FoodClockInputField',
 
-    data() {
+    data(){
         return {
                         
         };
@@ -60,8 +62,16 @@ export default {
 }
 
 .input-field legend{
-    
 
+}
+.v-enter-active,
+.v-leave-active {
+  transition:font-size 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  font-size: 0px;
 }
 .input-field input{
     border: none;

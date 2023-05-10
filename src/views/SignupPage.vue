@@ -8,7 +8,7 @@
 
         </header>
         <main>
-            <form class="page-form auth-form">
+            <form @submit.prevent="handleSignUp" class="page-form auth-form">
 
                 <div class="input-container flex-center">
                     <InputField v-for="(inputItem,index) in inputFieldData" :toggleShowPassword="this.toggleShowPassword" 
@@ -16,7 +16,7 @@
                         :inputActive="inputItem.fieldActive" :toggleInputActive="toggleInputActive" :index="index" :clearActive="this.clearActive"
                     />
                 </div>
-                    <button class="home-btn btn flex-center">
+                    <button type="submit" class="home-btn btn flex-center">
                         <span>SIGN UP</span>
                     </button>
                     <p class="auth-alternate-text">Already registered? <router-link to="/login">Login</router-link></p>
@@ -30,6 +30,7 @@
 
 <script>
 import InputField from '../components/InputField.vue';
+import router from '@/router'
     export default {
         components:{
             InputField
@@ -75,6 +76,9 @@ import InputField from '../components/InputField.vue';
                 this.inputFieldData.map((item) => {
                     item.fieldActive = false
                 })
+            },
+            handleSignUp(){
+                router.replace('/login')
             }
         }
     }

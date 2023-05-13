@@ -26,6 +26,7 @@ import FooterComponent from './components/FooterComponent.vue';
 @media screen and (min-width: 425px) {
   .food-clock{
     max-width: 425px;
+    max-height: 900px;
   }
   
 }

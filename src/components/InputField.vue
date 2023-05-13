@@ -61,9 +61,6 @@ export default {
  
 }
 
-.input-field legend{
-
-}
 .v-enter-active,
 .v-leave-active {
   transition:font-size 0.5s ease;

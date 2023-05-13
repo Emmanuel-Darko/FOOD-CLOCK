@@ -1,6 +1,10 @@
+@import "./menupages.css";
+
+
 *{
   box-sizing: border-box;
 }
+
 
 a{
   text-decoration: none;
@@ -21,6 +25,7 @@ body{
   flex-direction: column;
   margin: 0;
   background-color: #282626;
+  scroll-behavior: smooth;
 }
 
 #app {
@@ -29,8 +34,10 @@ body{
   padding: 0;
   height: 100vh;
   flex-direction: column;
+  justify-content: center;
   width: 100vw;
   overflow: hidden;
+  scroll-behavior: smooth;
   background-color: #000000;
 }
 

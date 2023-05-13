@@ -38,6 +38,7 @@ footer{
     position: absolute;
     bottom: 0;
     color: #000000;
+    background: #E3E9D1;
 }
 
 

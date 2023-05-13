@@ -6,7 +6,10 @@
                 <span class="notification">{{ notifications }}</span>
             </span>
         </header>
-        <main class="flex-center">
+
+        <UpdateMealComponent v-if="updateActive" :mealType="updateMeal.mealType" :icon="updateMeal.icon" :toggleEditePage="toggleEditMealPAge"/>
+
+        <main class="flex-center" v-if="!updateActive">
             <img class="menu-logo" src="/images/menuLogo.svg" alt="menu logo">
             
             <div class="menu-list flex-center">
@@ -16,11 +19,13 @@
                     <h4>{{ item.mealType }}</h4>
                 </div>
                     {{ item.meal }}
+                    <img v-on:click="()=>handleEditMeal(item)"  class="edit-meal" src="/images/🦆 icon _pencil_.svg"  alt="edit meal">
                 </div>
             </div>
 
         </main>
-        <img class="footer-img" src="/images/bg-img.svg" alt="dinning">
+
+            <img class="footer-img" src="/images/bg-img.svg" alt="dinning"/>
         
             <FloatingMenuComponentVue class="float-menu"/>
         
@@ -30,13 +35,20 @@
 
 <script>
 import FloatingMenuComponentVue from '../components/FloatingMenuComponent.vue';
+import UpdateMealComponent from '../components/UpdateMealComponent.vue';
     export default {
         components:{
-            FloatingMenuComponentVue
+            FloatingMenuComponentVue,
+            UpdateMealComponent
         },
         data(){
             return{
                 notifications:5,
+                updateMeal:{
+                    icon:"",
+                    mealType:"",
+                   },
+                updateActive:false,
                 mealList:[
                     {
                     meal:'Tea & bread',
@@ -55,12 +67,28 @@ import FloatingMenuComponentVue from '../components/FloatingMenuComponent.vue';
                 },
             ]
             }
+        },
+        methods:{
+            handleEditMeal(item){
+                this.updateMeal.icon=item.icon
+                this.updateMeal.mealType=item.mealType
+                this.toggleEditMealPAge()
+                
+            },
+            toggleEditMealPAge(){
+                this.updateActive=!this.updateActive
+            }
         }
         
     }
 </script>
 
 <style lang="css" scoped>
-
-
+.edit-meal{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+}
 </style>

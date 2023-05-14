@@ -40,7 +40,7 @@
 
 <script>
 import InputField from '../components/InputField.vue';
-import router from '@/router'
+// import router from '@/router'
     export default {
         components:{
             InputField

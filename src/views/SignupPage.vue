@@ -1,13 +1,16 @@
 <template>
     <div class="auth-page flex-center">
         <header class="auth-page-header flex-center">
-            <span></span>
-
-            <h1>Sign Up</h1>
-            <router-link to="/login">Login</router-link>
+            <!-- <span></span> -->
+            <div class="header-text">
+                <h3>Sign Up</h3>
+                <router-link to="/login">Login</router-link>
+            </div>
+            
 
         </header>
-        <main>
+        <img class="auth-logo" src="/images/homeLogo.svg"/>
+        <main class="main">
             <form @submit.prevent="handleSignUp" class="page-form auth-form">
 
                 <div class="input-container flex-center">
@@ -40,7 +43,7 @@
 
 <script>
 import InputField from '../components/InputField.vue';
-import router from '@/router'
+// import router from '@/router'
     export default {
         components:{
             InputField
@@ -117,6 +120,34 @@ import router from '@/router'
 
 <style lang="css" scoped>
 
+.auth-page-header{
+    position: relative;
+    height: 100px;
+    margin-top: 50px
 
+}
+.header-text{
+    position: absolute;
+    right: 0;
+    width: 69%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    /* background-color: blue; */
+}
+.main{
+    margin-top: 35px;
+}
+.input-container{
+    margin-bottom: 30px;
+}
+
+.auth-logo{
+width: 100px;
+}
+.auth-alternate-text{
+ justify-content: space-between;
+}
 
 </style>

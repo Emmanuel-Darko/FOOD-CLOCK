@@ -1,13 +1,12 @@
 <template>
-    <fieldset class="input-field flex-center" v-on:focusout="clearActive">
+    <fieldset class="input-field flex-center" v-on:focusout="clearActive" :class="{active: show-outline}">
         <Transition appear-active-class="fade">
             <legend v-show="inputActive">
                 {{placeholder}}
             </legend>
         </Transition>
         <input  :type="inputType" :placeholder="inputActive? null : placeholder" v-on:focus="toggleInputActive(index)" />
-    
-            <span v-on:click="toggleShowPassword" :class="showBtn">show</span>
+        <span v-on:click="toggleShowPassword" :class="showBtn">show</span>
    </fieldset>
 </template>
 
@@ -58,9 +57,10 @@ export default {
     position: relative;
     width: 343px;
     padding:16px 20px;
- 
 }
-
+.input-field.show-outline{
+    border: 0.5px solid #5DB075;
+}
 .v-enter-active,
 .v-leave-active {
   transition:font-size 0.5s ease;

@@ -126,6 +126,7 @@ import InputField from '../components/InputField.vue';
 }
 .auth-logo{
 width: 100px;
+color: #000000;
 }
 .auth-alternate-text{
  justify-content: space-between;

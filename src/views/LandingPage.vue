@@ -29,7 +29,8 @@ export default {
 }
 
 .home-logo {
-    height: 160px;
+    width: 220px;
+    /* height: 160px; */
     /* box-shadow: 0px 4px 20px rgba(101, 101, 101, 0.15); */
 }
 

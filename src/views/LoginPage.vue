@@ -9,7 +9,7 @@
             </div>
 
         </header>
-        <img class="auth-logo" src="/images/homeLogo.svg"/>
+        <img class="auth-logo" src="/images/homeLogo.png"/>
         <main class="main">
             <form  @submit.prevent="handleLogin" class="page-form auth-form">
 

@@ -68,7 +68,7 @@ body{
 /* auth pages global styles */
 .auth-page{  
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   height: 100%;
   width: 100%;
   transition: all .3s ease-in-out;

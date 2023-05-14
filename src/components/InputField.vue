@@ -1,7 +1,7 @@
 <template>
-    <fieldset class="input-field flex-center" v-on:focusout="clearActive">
+    <fieldset class="input-field flex-center" v-on:focusout="clearActive" :class="{active: inputActive}">
         <Transition appear-active-class="fade">
-            <legend v-show="inputActive" >
+            <legend v-show="inputActive" class="legend-placeholder" :class="{active: inputActive}">
                 {{placeholder}}
             </legend>
         </Transition>
@@ -65,6 +65,9 @@ export default {
     padding:16px 20px;
  
 }
+.input-field.active{
+    border: 0.5px solid #5DB075;
+}
 
 .v-enter-active,
 .v-leave-active {
@@ -74,6 +77,11 @@ export default {
 .v-enter-from,
 .v-leave-to {
   font-size: 0px;
+}
+.legend-placeholder.active{
+    border-color: #5DB075;
+    color: #5DB075;
+    /* display: none; */
 }
 .input-field input{
     border: none;

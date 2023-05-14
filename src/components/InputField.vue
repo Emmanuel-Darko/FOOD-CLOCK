@@ -1,12 +1,13 @@
 <template>
-    <fieldset class="input-field flex-center" v-on:focusout="clearActive" :class="{active: inputActive}">
+    <fieldset class="input-field flex-center" v-on:focusout="clearActive">
         <Transition appear-active-class="fade">
-            <legend v-show="inputActive" class="legend-placeholder" :class="{active: inputActive}">
+            <legend v-show="inputActive">
                 {{placeholder}}
             </legend>
         </Transition>
-        <input  :type="inputType" :placeholder="inputActive? null : placeholder" v-on:focus="toggleInputActive" v-model="value" v-on:change="()=>handleInput({type:inputType,data:value,name:inputName})" />
-        <span v-on:click="toggleShowPassword" :class="showBtn">show</span>
+        <input  :type="inputType" :placeholder="inputActive? null : placeholder" v-on:focus="toggleInputActive(index)" />
+    
+            <span v-on:click="toggleShowPassword" :class="showBtn">show</span>
    </fieldset>
 </template>
 
@@ -16,16 +17,11 @@ export default {
 
     data(){
         return {
-            typeData: this.inputType,
-            value:"",
-            data: {
-                email: '',
-                password: ''
-            }
+                        
         };
     },
+
     mounted() {
-        // this.typeData = this.checkData()
         
     },
     props:[
@@ -34,16 +30,15 @@ export default {
         "inputType",
         "placeholder",
         "inputValue",
-        "inputName",
         "showBtn",
        "toggleShowPassword",
        "toggleInputActive",
-       "clearActive",
-       "handleInput"
+       "clearActive"
     ],
 
     methods: {
-       
+      
+        
     },
 };
 </script>
@@ -65,9 +60,6 @@ export default {
     padding:16px 20px;
  
 }
-.input-field.active{
-    border: 0.5px solid #5DB075;
-}
 
 .v-enter-active,
 .v-leave-active {
@@ -77,11 +69,6 @@ export default {
 .v-enter-from,
 .v-leave-to {
   font-size: 0px;
-}
-.legend-placeholder.active{
-    border-color: #5DB075;
-    color: #5DB075;
-    /* display: none; */
 }
 .input-field input{
     border: none;

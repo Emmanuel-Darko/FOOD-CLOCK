@@ -9,7 +9,7 @@
             </div>
 
         </header>
-        <img class="auth-logo" src="/images/homeLogo.svg"/>
+        <img class="auth-logo" src="/images/homeLogo.png"/>
         <main class="main">
             <form  @submit.prevent="handleLogin" class="page-form auth-form">
 
@@ -126,6 +126,7 @@ import InputField from '../components/InputField.vue';
 }
 .auth-logo{
 width: 100px;
+color: #000000;
 }
 .auth-alternate-text{
  justify-content: space-between;

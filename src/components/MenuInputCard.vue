@@ -1,10 +1,17 @@
 <template>
     <div class="menu-input-card flex-center">
             <div v-for="(day,index) in weekMenuInputList" :key="index" class="dropdown-menu flex-center">
+
                 <div  v-on:click="()=>toggleDropDown(index)" class="flex-center menu-day" :class="{active:day.open}">
                     {{ day.name }} <img src="/images/arrow.svg" alt=""> 
                 </div>
+
+
+
                 <MenuInputField  class="input-fields" :class="{active:day.open}" :buttonText="day.btn"/>
+
+
+
             </div>
     </div>
 </template>
@@ -75,7 +82,7 @@ width: 300px;
 
 .dropdown-menu .input-fields.active{
     height: 307px;
-    transition: all .3s ease-in-out;
+    transition: height .3s ease-in-out;
 }
 .menu-day{
     padding: 19px 0px;

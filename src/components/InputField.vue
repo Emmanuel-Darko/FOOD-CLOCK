@@ -1,13 +1,12 @@
 <template>
     <fieldset class="input-field flex-center" v-on:focusout="clearActive">
         <Transition appear-active-class="fade">
-            <legend v-show="inputActive">
+            <legend v-show="inputActive" >
                 {{placeholder}}
             </legend>
         </Transition>
-        <input  :type="inputType" :placeholder="inputActive? null : placeholder" v-on:focus="toggleInputActive(index)"/>
-    
-            <span v-on:click="toggleShowPassword" :class="showBtn">show</span>
+        <input  :type="inputType" :placeholder="inputActive? null : placeholder" v-on:focus="toggleInputActive" v-model="value" v-on:change="()=>handleInput({type:inputType,data:value,name:inputName})" />
+        <span v-on:click="toggleShowPassword" :class="showBtn">show</span>
    </fieldset>
 </template>
 
@@ -17,11 +16,16 @@ export default {
 
     data(){
         return {
-                        
+            typeData: this.inputType,
+            value:"",
+            data: {
+                email: '',
+                password: ''
+            }
         };
     },
-
     mounted() {
+        // this.typeData = this.checkData()
         
     },
     props:[
@@ -30,15 +34,16 @@ export default {
         "inputType",
         "placeholder",
         "inputValue",
+        "inputName",
         "showBtn",
        "toggleShowPassword",
        "toggleInputActive",
-       "clearActive"
+       "clearActive",
+       "handleInput"
     ],
 
     methods: {
-      
-        
+       
     },
 };
 </script>

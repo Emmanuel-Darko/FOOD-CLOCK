@@ -11,9 +11,19 @@
             <form @submit.prevent="handleSignUp" class="page-form auth-form">
 
                 <div class="input-container flex-center">
-                    <InputField v-for="(inputItem,index) in inputFieldData" :toggleShowPassword="this.toggleShowPassword" 
-                        :key="index" :inputType="inputItem.type" :placeholder="inputItem.placeholder" :showBtn="inputItem.showBtn" 
-                        :inputActive="inputItem.fieldActive" :toggleInputActive="toggleInputActive" :index="index" :clearActive="this.clearActive"
+                    <InputField 
+                         :inputType="inputFieldData[0].type" :placeholder="inputFieldData[0].placeholder" :showBtn="inputFieldData[0].showBtn" 
+                        :inputActive="inputFieldData[0].fieldActive" :toggleInputActive="()=>toggleInputActive(0)" :clearActive="this.clearActive"
+                        :handleInput="handleInput" :inputName="inputFieldData[0].name"
+                    />
+                    <InputField :toggleShowPassword="this.toggleShowPassword" :handleInput="handleInput" :inputName="inputFieldData[1].name"
+                         :inputType="inputFieldData[1].type" :placeholder="inputFieldData[1].placeholder" :showBtn="inputFieldData[1].showBtn" 
+                        :inputActive="inputFieldData[1].fieldActive" :toggleInputActive="()=>toggleInputActive(1)" :clearActive="this.clearActive"
+                    />
+                    <InputField 
+                    :toggleShowPassword="this.toggleShowPassword" :handleInput="handleInput" :inputName="inputFieldData[2].name"
+                         :inputType="inputFieldData[2].type" :placeholder="inputFieldData[2].placeholder" :showBtn="inputFieldData[2].showBtn" 
+                        :inputActive="inputFieldData[2].fieldActive" :toggleInputActive="()=>toggleInputActive(2)" :clearActive="this.clearActive"
                     />
                 </div>
                     <button type="submit" class="home-btn btn flex-center">
@@ -43,13 +53,15 @@ import router from '@/router'
                         type:'email',
                         placeholder:"Email *",
                         value:"",
+                        name:'email',
                         showBtn:"noshow",
                         fieldActive: false
                     },
                     {
                         type: "password",
                         placeholder:"Password *",
-                        value:this.showPassword,
+                        value:"",
+                        name:'password',
                         showBtn:"show",
                         fieldActive: false
                     },
@@ -57,6 +69,7 @@ import router from '@/router'
                         type:"password",
                         placeholder:"Confirm Password *",
                         value:"",
+                        name:'confirmPassword',
                         showBtn:"noshow",
                         fieldActive: false
                     }
@@ -78,7 +91,25 @@ import router from '@/router'
                 })
             },
             handleSignUp(){
-                router.replace('/login')
+                console.log(this.inputFieldData);
+                // router.replace('/login')
+            },
+            handleInput(value){
+                if(value.name=='email'){
+                    this.inputFieldData[0].value=value.data
+                }
+                if(value.name=='password'){
+                    this.inputFieldData[1].value=value.data
+                }
+                if(value.name=='confirmPassword'){
+                    this.inputFieldData[2].value=value.data
+                }
+
+                // value.type=='email'
+                // ?this.inputFieldData[0].value=value.data
+                // :value.name=='confirmPassword'
+                // ?this.inputFieldData[2].value=value.data
+                // :this.inputFieldData[1].value=value.data
             }
         }
     }

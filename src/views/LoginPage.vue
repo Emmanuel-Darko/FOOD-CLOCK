@@ -13,9 +13,14 @@
             <form  @submit.prevent="handleLogin" class="page-form auth-form">
 
                 <div class="input-container flex-center">
-                    <InputField v-for="(inputItem,index) in inputFieldData" :toggleShowPassword="this.toggleShowPassword" 
-                        :key="index" :inputType="inputItem.type" :placeholder="inputItem.placeholder" :showBtn="inputItem.showBtn" 
-                        :inputActive="inputItem.fieldActive" :toggleInputActive="toggleInputActive" :index="index" :clearActive="this.clearActive"
+                    <InputField :inputType="inputFieldData[0].type" :placeholder="inputFieldData[0].placeholder" :showBtn="inputFieldData[0].showBtn" 
+                        :inputActive="inputFieldData[0].fieldActive" :toggleInputActive="()=>toggleInputActive(0)" :clearActive="this.clearActive" :handleInput="handleInput"
+                   
+                    />
+                    <InputField  :toggleShowPassword="this.toggleShowPassword" :handleInput="handleInput"
+                         :inputType="inputFieldData[1].type" :placeholder="inputFieldData[1].placeholder" :showBtn="inputFieldData[1].showBtn" 
+                        :inputActive="inputFieldData[1].fieldActive" :toggleInputActive="()=>toggleInputActive(1)" :clearActive="this.clearActive"
+                        
                     />
                 </div>
                     <button type="submit" class="home-btn btn flex-center">
@@ -37,7 +42,7 @@
 
 <script>
 import InputField from '../components/InputField.vue';
-import router from '@/router'
+// import router from '@/router'
     export default {
         components:{
             InputField
@@ -56,7 +61,7 @@ import router from '@/router'
                     {
                         type: "password",
                         placeholder:"Password *",
-                        value:this.showPassword,
+                        value:'',
                         showBtn:"show",
                         fieldActive: false
                     }
@@ -78,7 +83,13 @@ import router from '@/router'
                 })
             },
             handleLogin(){
-                router.replace('/menu')
+                console.log(this.inputFieldData);
+                // router.replace('/menu')
+            },
+            handleInput(value){
+                value.type=='password'
+                ?this.inputFieldData[1].value=value.data
+                :this.inputFieldData[0].value=value.data
             }
 
         }

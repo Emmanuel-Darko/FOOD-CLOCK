@@ -24,6 +24,7 @@
         <!-- <img class="footer-img" src="/images/bg-img.svg" alt="dinning"> -->
 
         <FloatingMenuComponentVue class="float-menu" />
+        <!-- <ActionButtonContainer class="float-menu" /> -->
 
 
     </div>
@@ -31,11 +32,13 @@
 
 <script>
 import FloatingMenuComponentVue from '../components/FloatingMenuComponent.vue';
+import ActionButtonContainer from '../components/ActionButtonContainer.vue';
 import router from '@/router'
 import axios from 'axios'
 export default {
     components: {
-        FloatingMenuComponentVue
+        FloatingMenuComponentVue,
+        ActionButtonContainer
     },
     data() {
         return {
@@ -63,7 +66,7 @@ export default {
     beforeMount() {
         const token = localStorage.getItem('usertoken')
         if(!token){
-            // router.push('/login')
+            router.push('/login')
         }
     },
     mounted() {

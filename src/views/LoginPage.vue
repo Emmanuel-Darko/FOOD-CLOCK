@@ -94,19 +94,30 @@ import router from '@/router'
                     email: this.inputFieldData[0].value,
                     password: this.inputFieldData[1].value
                 }
-                console.log(user)
-                axios.post('http://192.168.1.53:3000/auth/login', user)
-                .then(res => {
-                    const token = res.data.token
-                    localStorage.setItem('usertoken', token)
-                    this.testToast = res.data.message
-                }).then(res => {
-                    setTimeout( this.pushToLogin, 4000)
-                })
-                .catch(err => {
-                    console.log(err.response.data.message)
-                    this.testToast = err.response.data.message
-                })
+
+                if(user.email == '' && user.password == ''){
+                    return this.testToast = 'Input fields cannot be empty'
+                }
+
+                if(user.email && user.password){
+                    axios.post('http://192.168.1.53:3000/auth/login', user)
+                    .then(res => {
+                        console.log(res)
+                        const token = res.data.token
+                        localStorage.setItem('usertoken', token)
+                    })
+                    .then(res => {
+                        this.testToast = res.data.message
+                    })
+                    .then(res => {
+                        setTimeout( this.pushToLogin, 4000)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        const error = err.response?.data.message ? err.response.data.message : err.message
+                        this.testToast = error
+                    })
+                }
             },
             handleInput(value){
                 value.name=='password'
@@ -154,5 +165,8 @@ color: #000000;
 }
 .auth-alternate-text{
  justify-content: space-between;
+}
+.auth-alternate-text{
+    margin-top: 40px;
 }
 </style>

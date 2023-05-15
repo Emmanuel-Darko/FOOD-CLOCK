@@ -21,7 +21,7 @@
             </div>
 
         </main>
-        <img class="footer-img" src="/images/bg-img.svg" alt="dinning">
+        <!-- <img class="footer-img" src="/images/bg-img.svg" alt="dinning"> -->
 
         <FloatingMenuComponentVue class="float-menu" />
 
@@ -63,7 +63,7 @@ export default {
     beforeMount() {
         const token = localStorage.getItem('usertoken')
         if(!token){
-            router.push('/login')
+            // router.push('/login')
         }
     },
     mounted() {

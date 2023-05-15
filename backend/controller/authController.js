@@ -3,7 +3,7 @@ const bcrypt= require("bcryptjs")
 const jwt=require('jsonwebtoken')
 const {signupValidator,loginValidator,updateValidator}=require("../validation/validation")
 const crypto =require("crypto")
-
+require("dotenv").config()
 
 const callBack=(err,result,res,success=200,errCode=400)=>{
     if(err){
@@ -17,7 +17,7 @@ const createUser = async(req,res)=>{
     const result= await signupValidator.validateAsync(req.body)
     const {email,password,role}= result
     if(!email&&!password){
-        res.status(400).json(result)
+        res.status(400).json({message:"All fields are Mandatory"})
         return
     }
     const salt = bcrypt.genSaltSync(10);
@@ -52,7 +52,7 @@ const createUser = async(req,res)=>{
                         console.log(err)
                         res.status(204).json({message:"server erorr occured"})
                     }
-                    res.status(201).json(result)
+                    res.status(201).json( {message:"SignUp Successful",result})
                 }) 
             }
           ) 
@@ -62,35 +62,37 @@ const createUser = async(req,res)=>{
 
 const getUser = async(req,res)=>{
    
-        const {error} = loginValidator.validate(req.body)
+        const {error ,value} = loginValidator.validate(req.body)
     // console.log("result",result,error)   
     if(error){
         res.status(400).json({message:"invalid email or password"})
         return;  
     }
     else{  
-        const {email,password}=req.body
+
+        const {email,password}=value
        
        
      connection.query(`SELECT * FROM users WHERE user_email ="${email}"`,
     (err,result)=>{
         let userExist=result[0]?.user_email;
-        let userValid= bcrypt.compareSync(password, result[0].user_password);
+        let userValid= bcrypt.compareSync(password, result[0]?.user_password);
         if(err){
             res.status(400).json({message:"invalid email or password"})
             return;      
         }
+
         else if(!userExist||!userValid){
                 res.status(409).json({message:"invalid email or password"})
                 return;
             }else{        
                 const user=result[0]
                 const token =jwt.sign({email,password},process.env.SECRETE_KEY,{ expiresIn: '1h' })
-                    res.status(200).json({user,token})
+                    res.status(200).json({user,token,message:"Login in Successful"})
                 
             }}
         )}
-        dbClose
+        
     } 
 
 

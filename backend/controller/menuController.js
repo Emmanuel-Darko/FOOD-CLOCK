@@ -7,7 +7,6 @@ const todayDate=new Date()
 dbOpen()
 
 const getTodayMenu =(req,res)=>{
-   
 
     connection.query(`SELECT details_id,item_name,menu_details.category_id,menu_day_id,menu_day,category_name 
     FROM menu_details 

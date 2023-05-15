@@ -1,5 +1,4 @@
 <template>
-   
         <div class="auth-page flex-center">
         <header class="auth-page-header flex-center">
             <!-- <span></span> -->
@@ -37,15 +36,16 @@
                         
                     </p>
             </form>
-            <ToastComponent />
+            <ToastComponent :message="testToast"/>
         </main>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
 import InputField from '../components/InputField.vue';
 import ToastComponent from '../components/ToastComponent.vue';
-// import router from '@/router'
+import router from '@/router'
     export default {
         components:{
             InputField,
@@ -54,6 +54,7 @@ import ToastComponent from '../components/ToastComponent.vue';
         data(){
             return{
                 inputActive:false,
+                testToast: '',
                 inputFieldData:[
                     {
                         type:'email',
@@ -89,13 +90,31 @@ import ToastComponent from '../components/ToastComponent.vue';
                 })
             },
             handleLogin(){
-                console.log(this.inputFieldData);
-                // router.replace('/menu')
+                const user = {
+                    email: this.inputFieldData[0].value,
+                    password: this.inputFieldData[1].value
+                }
+                console.log(user)
+                axios.post('http://192.168.1.53:3000/auth/login', user)
+                .then(res => {
+                    const token = res.data.token
+                    localStorage.setItem('usertoken', token)
+                    this.testToast = res.data.message
+                }).then(res => {
+                    setTimeout( this.pushToLogin, 4000)
+                })
+                .catch(err => {
+                    console.log(err.response.data.message)
+                    this.testToast = err.response.data.message
+                })
             },
             handleInput(value){
                 value.name=='password'
                 ?this.inputFieldData[1].value=value.data
                 :this.inputFieldData[0].value=value.data
+            },
+            pushToLogin(){
+                router.push('/menu')
             }
 
         }

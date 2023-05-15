@@ -36,21 +36,26 @@
                 
                 
             </form>
+            <ToastComponent :message="testToast"/>
         </main>
 
     </div>
 </template>
 
 <script>
+import axios from 'axios'
 import InputField from '../components/InputField.vue';
-// import router from '@/router'
+import ToastComponent from '@/components/ToastComponent.vue'
+import router from '@/router'
     export default {
         components:{
-            InputField
+            InputField,
+            ToastComponent
         },
         data(){
             return{
                 inputActive:false,
+                testToast: '',
                 inputFieldData:[
                     {
                         type:'email',
@@ -94,8 +99,26 @@ import InputField from '../components/InputField.vue';
                 })
             },
             handleSignUp(){
-                console.log(this.inputFieldData);
-                // router.replace('/login')
+                const checkPass = this.inputFieldData[1].value !== this.inputFieldData[2].value
+                if(checkPass)
+                    return this.testToast = 'Password mismatch'
+
+                if(!checkPass){
+                    const newUser = {
+                        email: this.inputFieldData[0].value,
+                        password: this.inputFieldData[1].value
+                    }
+                    axios.post('http://192.168.1.53:3000/auth/signup', newUser)
+                    .then((res) =>{
+                        this.testToast = 'Success, redirecting to login'
+                    })
+                    .then(res => {
+                        setTimeout(this.pushToLogin, 4000)
+                    })
+                    .catch(err => {
+                        this.testToast = err.response.data.message
+                    })
+                }
             },
             handleInput(value){
                 if(value.name=='email'){
@@ -113,6 +136,9 @@ import InputField from '../components/InputField.vue';
                 // :value.name=='confirmPassword'
                 // ?this.inputFieldData[2].value=value.data
                 // :this.inputFieldData[1].value=value.data
+            },
+            pushToLogin(){
+                router.push('/login')
             }
         }
     }

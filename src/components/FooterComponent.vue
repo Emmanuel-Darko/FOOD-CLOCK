@@ -28,7 +28,7 @@ export default {
 <style lang="css" scoped>
 footer{
     width: 100%;
-    font-family: 'Sarabun';
+    /* font-family: 'Sarabun'; */
     font-style: normal;
     font-weight: 250;
     font-size: 14px;

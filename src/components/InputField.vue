@@ -99,7 +99,6 @@ export default {
     top: 50%;
     right: 22px;
     transform: translateY(-50%);
-
 }
 .input-field .show:hover{
     color: #348a4c;

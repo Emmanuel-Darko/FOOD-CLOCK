@@ -20,7 +20,8 @@ a{
 }
 /* setting page layout and major font style in the body */
 body{
-  font-family: 'Sarabun', sans-serif;
+  /* font-family: 'Sarabun', sans-serif; */
+  font-family: 'Sono';
   font-weight: normal;
   flex-direction: column;
   margin: 0;
@@ -29,6 +30,7 @@ body{
 }
 
 #app {
+  font-family: 'Sono';
   max-width: 1280px;
   margin: 0;
   padding: 0;
@@ -74,7 +76,7 @@ body{
   transition: all .3s ease-in-out;
 }
 .auth-page-header{
-  font-family: 'Inter';
+  /* font-family: 'Inter'; */
   font-style: normal;
   font-weight: 600;
   font-size: 30px;

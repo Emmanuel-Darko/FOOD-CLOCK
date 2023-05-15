@@ -1,9 +1,9 @@
 <template>
     <div class="floating-menu-container flex-center">
         <ul class="flex-center" :class="{active:menuActive}">
-            <li><router-link to="/">Hello</router-link></li>
-            <li><router-link to="/">Back</router-link></li>
-            <li><router-link to="/">Logout</router-link></li>
+            <li>Hello</li>
+            <li>Back</li>
+            <li @click="logoutHandler">Logout</li>
         </ul>
 
         <button @click.prevent="toggleActiveMenu" class="menu-btn flex-center" :class="{active:menuActive}">
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import router from '@/router'
 export default {
     name: 'FoodClockFloatingMenuComponent',
 
@@ -30,8 +31,11 @@ export default {
     methods: {
         toggleActiveMenu(){
             this.menuActive = !this.menuActive;
+        },
+        logoutHandler(){
+            localStorage.clear('usertoken')
+            router.push('/login')
         }
-        
     },
 };
 </script>
@@ -57,13 +61,13 @@ export default {
     animation: menu-animate-f 1s linear forwards;
 }
 
-.floating-menu-container ul a{
+.floating-menu-container ul li{
     display: block;
     width: 80px;
     color: #5DB075;
 }
 
-.floating-menu-container ul a:hover{
+.floating-menu-container ul li:hover{
     color: #348a4c;
 }
 .floating-menu-container ul.active{

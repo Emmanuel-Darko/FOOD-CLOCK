@@ -1,11 +1,11 @@
 <template>
-    <fieldset class="input-field flex-center" v-on:focusout="clearActive" :class="{active: show-outline}">
+    <fieldset class="input-field flex-center" v-on:focusout="clearActive" :class="{active: inputActive}">
         <Transition appear-active-class="fade">
-            <legend v-show="inputActive">
+            <legend v-show="inputActive" class="legendText" :class="{active: inputActive}">
                 {{placeholder}}
             </legend>
         </Transition>
-        <input  :type="inputType" :placeholder="inputActive? null : placeholder" v-on:focus="toggleInputActive(index)" />
+        <input  :type="inputType" :placeholder="inputActive? null : placeholder" v-on:focus="toggleInputActive(index)" v-model="value" v-on:change="() => handleInput({name:inputName, data:value})"/>
         <span v-on:click="toggleShowPassword" :class="showBtn">show</span>
    </fieldset>
 </template>
@@ -16,7 +16,7 @@ export default {
 
     data(){
         return {
-                        
+            value: ''
         };
     },
 
@@ -29,14 +29,15 @@ export default {
         "inputType",
         "placeholder",
         "inputValue",
+        "inputName",
         "showBtn",
        "toggleShowPassword",
        "toggleInputActive",
-       "clearActive"
+       "clearActive",
+       "handleInput"
     ],
 
     methods: {
-      
         
     },
 };
@@ -58,8 +59,11 @@ export default {
     width: 343px;
     padding:16px 20px;
 }
-.input-field.show-outline{
+.input-field.active{
     border: 0.5px solid #5DB075;
+}
+.legendText.active{
+    color: #348a4c;
 }
 .v-enter-active,
 .v-leave-active {

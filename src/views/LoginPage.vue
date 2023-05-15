@@ -14,11 +14,11 @@
             <form  @submit.prevent="handleLogin" class="page-form auth-form">
 
                 <div class="input-container flex-center">
-                    <InputField :inputType="inputFieldData[0].type" :placeholder="inputFieldData[0].placeholder" :showBtn="inputFieldData[0].showBtn" 
+                    <InputField :inputType="inputFieldData[0].type" :placeholder="inputFieldData[0].placeholder" :showBtn="inputFieldData[0].showBtn" :inputName="inputFieldData[0].name"
                         :inputActive="inputFieldData[0].fieldActive" :toggleInputActive="()=>toggleInputActive(0)" :clearActive="this.clearActive" :handleInput="handleInput"
                    
                     />
-                    <InputField  :toggleShowPassword="this.toggleShowPassword" :handleInput="handleInput"
+                    <InputField  :toggleShowPassword="this.toggleShowPassword" :handleInput="handleInput" :inputName="inputFieldData[1].name"
                          :inputType="inputFieldData[1].type" :placeholder="inputFieldData[1].placeholder" :showBtn="inputFieldData[1].showBtn" 
                         :inputActive="inputFieldData[1].fieldActive" :toggleInputActive="()=>toggleInputActive(1)" :clearActive="this.clearActive"
                         
@@ -37,16 +37,19 @@
                         
                     </p>
             </form>
+            <ToastComponent />
         </main>
     </div>
 </template>
 
 <script>
 import InputField from '../components/InputField.vue';
+import ToastComponent from '../components/ToastComponent.vue';
 // import router from '@/router'
     export default {
         components:{
-            InputField
+            InputField,
+            ToastComponent
         },
         data(){
             return{
@@ -56,6 +59,7 @@ import InputField from '../components/InputField.vue';
                         type:'email',
                         placeholder:"Email *",
                         value:"",
+                        name: "email",
                         showBtn:"noshow",
                         fieldActive: false
                     },
@@ -63,6 +67,7 @@ import InputField from '../components/InputField.vue';
                         type: "password",
                         placeholder:"Password *",
                         value:'',
+                        name: "password",
                         showBtn:"show",
                         fieldActive: false
                     }
@@ -88,7 +93,7 @@ import InputField from '../components/InputField.vue';
                 // router.replace('/menu')
             },
             handleInput(value){
-                value.type=='password'
+                value.name=='password'
                 ?this.inputFieldData[1].value=value.data
                 :this.inputFieldData[0].value=value.data
             }

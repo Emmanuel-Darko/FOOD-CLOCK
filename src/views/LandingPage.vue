@@ -36,11 +36,33 @@ export default {
 
 .home-btn {
     width: 190px;
+
 }
 
 
 .banner {
+
     width: 276px;
     height: 251px;
+}
+
+@media only screen and (max-width: 850px) and (orientation:landscape) {
+
+
+    .home-logo {
+        width: 130px;
+        /* height: 160px; */
+        /* box-shadow: 0px 4px 20px rgba(101, 101, 101, 0.15); */
+    }
+
+    .home-btn {
+        width: 140px;
+        height: fit-content;
+    }
+
+    .banner {
+        width: 190px;
+        /* height: 251px; */
+    }
 }
 </style>

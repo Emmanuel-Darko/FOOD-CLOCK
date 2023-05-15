@@ -58,7 +58,7 @@ export default {
     padding: 2px 10px;
     /* background: #602222; */
     justify-content: center;
-    /* font-family: 'Inter'; */
+    font-family: 'Inter';
     font-style: normal;
     flex-direction: column;
 }

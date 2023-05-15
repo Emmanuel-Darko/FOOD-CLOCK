@@ -99,15 +99,15 @@ import router from '@/router'
                 })
             },
             handleSignUp(){
+                const newUser = {
+                    email: this.inputFieldData[0].value,
+                    password: this.inputFieldData[1].value
+                }
                 const checkPass = this.inputFieldData[1].value !== this.inputFieldData[2].value
                 if(checkPass)
                     return this.testToast = 'Password mismatch'
 
-                if(!checkPass){
-                    const newUser = {
-                        email: this.inputFieldData[0].value,
-                        password: this.inputFieldData[1].value
-                    }
+                if(!checkPass && newUser.email !== '' && newUser.password !== ''){
                     axios.post('http://192.168.1.53:3000/auth/signup', newUser)
                     .then((res) =>{
                         this.testToast = 'Success, redirecting to login'
@@ -118,6 +118,9 @@ import router from '@/router'
                     .catch(err => {
                         this.testToast = err.response.data.message
                     })
+                }
+                else{
+                    this.testToast = 'Input fields cannot be empty!'
                 }
             },
             handleInput(value){
@@ -174,6 +177,9 @@ width: 100px;
 }
 .auth-alternate-text{
  justify-content: space-between;
+}
+.auth-alternate-text{
+    margin-top: 40px;
 }
 
 </style>

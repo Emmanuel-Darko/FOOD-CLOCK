@@ -61,39 +61,42 @@ const createUser = async(req,res)=>{
 }
 
 const getUser = async(req,res)=>{
-   
-        const {error ,value} = loginValidator.validate(req.body)
-    // console.log("result",result,error)   
-    if(error){
-        res.status(400).json({message:"invalid email or password"})
-        return;  
-    }
-    else{  
-
-        const {email,password}=value
+    try{
+        const value = await loginValidator.validateAsync(req.body)
+          const {email,password}=value
+          connection.query(`SELECT * FROM users WHERE user_email ="${email}"`,
        
-       
-     connection.query(`SELECT * FROM users WHERE user_email ="${email}"`,
-    (err,result)=>{
-        let userExist=result[0]?.user_email;
-        let userValid= bcrypt.compareSync(password, result[0]?.user_password);
-        if(err){
-            res.status(400).json({message:"invalid email or password"})
-            return;      
-        }
+          (err,result)=>{
+              if(err){
+                console.log(err);
+                  res.status(400).json({message:"invalid email or password"})
+                  return;      
+              }
 
-        else if(!userExist||!userValid){
-                res.status(409).json({message:"invalid email or password"})
-                return;
-            }else{        
-                const user=result[0]
-                const token =jwt.sign({email,password},process.env.SECRETE_KEY,{ expiresIn: '1h' })
-                    res.status(200).json({user,token,message:"Login in Successful"})
+              let userExist=result[0]
+              if (!userExist) {
+                res.status(400).json({message:"invalid email or password"})
+                  return;    
+                }
                 
-            }}
-        )}
-        
-    } 
+                
+                let userValid= bcrypt.compareSync(password, userExist.user_password);
+      
+              if(!userExist||!userValid){
+                      res.status(409).json({message:"invalid email or password"})
+                      return;
+                  }else{        
+                      const user=result[0]
+                      const token =jwt.sign({email,password},process.env.SECRETE_KEY,{ expiresIn: '1h' })
+                          res.status(200).json({user,token,message:"Login is Successful"})
+                      
+                  }} 
+                   )  }
+                   catch{(error)=>{
+                        res.status(400).json({message:"invalid email or password"})
+                        return;    }
+                    }
+ }
 
 
 const updateUser =async(req,res)=>{

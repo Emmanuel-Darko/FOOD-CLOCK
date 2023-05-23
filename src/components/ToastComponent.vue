@@ -31,7 +31,7 @@
         methods: {
             handleShowAlert(){
                 this.showMessage = true
-                setTimeout(this.setAlertTimeout, 4000)
+                setTimeout(this.setAlertTimeout, 3000)
             },
             setAlertTimeout(){
                 this.showMessage = false

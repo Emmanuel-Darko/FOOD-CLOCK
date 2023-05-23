@@ -119,6 +119,11 @@ body{
 .auth-alternate-text a:hover{
   color:#348a4c;
 }
+.auth-logo{
+  width: 100px;
+  color: #000000;
+  margin-bottom: 40px;
+  }
 /* @media (min-width: 1024px) {
   body {
    flex-direction: row;

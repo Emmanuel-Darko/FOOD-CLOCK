@@ -83,7 +83,7 @@ justify-content: space-evenly;
     outline: #AABB85;
     padding: 14px 0px;
     padding-left: 14px;
-    font-family: 'Sarabun';
+    /* font-family: 'Sarabun'; */
     font-style: normal;
     font-weight: 500;
     font-size: 10px;

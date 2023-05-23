@@ -1,13 +1,16 @@
 <template>
     <div class="auth-page flex-center">
         <header class="auth-page-header flex-center">
-            <span></span>
-
-            <h1>Sign Up</h1>
-            <router-link to="/login">Login</router-link>
+            <!-- <span></span> -->
+            <div class="header-text">
+                <h3>Sign Up</h3>
+                <router-link to="/login">Login</router-link>
+            </div>
+            
 
         </header>
-        <main>
+        <img class="auth-logo" src="/images/homeLogo.png"/>
+        <main class="main">
             <form @submit.prevent="handleSignUp" class="page-form auth-form">
 
                 <div class="input-container flex-center">
@@ -33,21 +36,26 @@
                 
                 
             </form>
+            <ToastComponent :message="testToast"/>
         </main>
 
     </div>
 </template>
 
 <script>
+import axios from 'axios'
 import InputField from '../components/InputField.vue';
-// import router from '@/router'
+import ToastComponent from '@/components/ToastComponent.vue'
+import router from '@/router'
     export default {
         components:{
-            InputField
+            InputField,
+            ToastComponent
         },
         data(){
             return{
                 inputActive:false,
+                testToast: '',
                 inputFieldData:[
                     {
                         type:'email',
@@ -91,8 +99,29 @@ import InputField from '../components/InputField.vue';
                 })
             },
             handleSignUp(){
-                console.log(this.inputFieldData);
-                // router.replace('/login')
+                const newUser = {
+                    email: this.inputFieldData[0].value,
+                    password: this.inputFieldData[1].value
+                }
+                const checkPass = this.inputFieldData[1].value !== this.inputFieldData[2].value
+                if(checkPass)
+                    return this.testToast = 'Password mismatch'
+
+                if(!checkPass && newUser.email !== '' && newUser.password !== ''){
+                    axios.post('http://192.168.1.53:3000/auth/signup', newUser)
+                    .then((res) =>{
+                        this.testToast = 'Success, redirecting to login'
+                    })
+                    .then(res => {
+                        setTimeout(this.pushToLogin, 4000)
+                    })
+                    .catch(err => {
+                        this.testToast = err.response.data.message
+                    })
+                }
+                else{
+                    this.testToast = 'Input fields cannot be empty!'
+                }
             },
             handleInput(value){
                 if(value.name=='email'){
@@ -110,6 +139,9 @@ import InputField from '../components/InputField.vue';
                 // :value.name=='confirmPassword'
                 // ?this.inputFieldData[2].value=value.data
                 // :this.inputFieldData[1].value=value.data
+            },
+            pushToLogin(){
+                router.push('/login')
             }
         }
     }
@@ -117,6 +149,37 @@ import InputField from '../components/InputField.vue';
 
 <style lang="css" scoped>
 
+.auth-page-header{
+    position: relative;
+    height: 100px;
+    margin-top: 50px
 
+}
+.header-text{
+    position: absolute;
+    right: 0;
+    width: 69%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    /* background-color: blue; */
+}
+.main{
+    margin-top: 35px;
+}
+.input-container{
+    margin-bottom: 30px;
+}
+
+.auth-logo{
+width: 100px;
+}
+.auth-alternate-text{
+ justify-content: space-between;
+}
+.auth-alternate-text{
+    margin-top: 40px;
+}
 
 </style>

@@ -72,6 +72,7 @@
     box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.06);
     border-radius: 6px;
     position: relative;
+    text-align: center;
 }
 .menu-item h4{
     margin: 0;
@@ -84,8 +85,11 @@
     letter-spacing: 0.2px;
     color: #3B3737;
 }
+
 .menu-item-header{
     flex-direction: column;
+    justify-content: center;
+
 }
 
 .footer-img{

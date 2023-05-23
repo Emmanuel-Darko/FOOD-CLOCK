@@ -73,7 +73,7 @@ background: #348a4c;
 }
 
 .update-success main h1{
-    font-family: 'Sarabun';
+    /* font-family: 'Sarabun'; */
     font-style: normal;
     font-weight: 600;
     font-size: 23px;

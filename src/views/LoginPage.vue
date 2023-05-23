@@ -1,5 +1,4 @@
 <template>
-   
         <div class="auth-page flex-center">
         <header class="auth-page-header flex-center">
             <!-- <span></span> -->
@@ -14,11 +13,11 @@
             <form  @submit.prevent="handleLogin" class="page-form auth-form">
 
                 <div class="input-container flex-center">
-                    <InputField :inputType="inputFieldData[0].type" :placeholder="inputFieldData[0].placeholder" :showBtn="inputFieldData[0].showBtn" 
+                    <InputField :inputType="inputFieldData[0].type" :placeholder="inputFieldData[0].placeholder" :showBtn="inputFieldData[0].showBtn" :inputName="inputFieldData[0].name"
                         :inputActive="inputFieldData[0].fieldActive" :toggleInputActive="()=>toggleInputActive(0)" :clearActive="this.clearActive" :handleInput="handleInput"
                    
                     />
-                    <InputField  :toggleShowPassword="this.toggleShowPassword" :handleInput="handleInput"
+                    <InputField  :toggleShowPassword="this.toggleShowPassword" :handleInput="handleInput" :inputName="inputFieldData[1].name"
                          :inputType="inputFieldData[1].type" :placeholder="inputFieldData[1].placeholder" :showBtn="inputFieldData[1].showBtn" 
                         :inputActive="inputFieldData[1].fieldActive" :toggleInputActive="()=>toggleInputActive(1)" :clearActive="this.clearActive"
                         
@@ -37,25 +36,31 @@
                         
                     </p>
             </form>
+            <ToastComponent :message="testToast"/>
         </main>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
 import InputField from '../components/InputField.vue';
-// import router from '@/router'
+import ToastComponent from '../components/ToastComponent.vue';
+import router from '@/router'
     export default {
         components:{
-            InputField
+            InputField,
+            ToastComponent
         },
         data(){
             return{
                 inputActive:false,
+                testToast: '',
                 inputFieldData:[
                     {
                         type:'email',
                         placeholder:"Email *",
                         value:"",
+                        name: "email",
                         showBtn:"noshow",
                         fieldActive: false
                     },
@@ -63,6 +68,7 @@ import InputField from '../components/InputField.vue';
                         type: "password",
                         placeholder:"Password *",
                         value:'',
+                        name: "password",
                         showBtn:"show",
                         fieldActive: false
                     }
@@ -84,13 +90,42 @@ import InputField from '../components/InputField.vue';
                 })
             },
             handleLogin(){
-                console.log(this.inputFieldData);
-                // router.replace('/menu')
+                const user = {
+                    email: this.inputFieldData[0].value,
+                    password: this.inputFieldData[1].value
+                }
+
+                if(user.email == '' && user.password == ''){
+                    return this.testToast = 'Input fields cannot be empty'
+                }
+
+                if(user.email && user.password){
+                    axios.post('http://192.168.1.53:3000/auth/login', user)
+                    .then(res => {
+                        console.log(res)
+                        const token = res.data.token
+                        localStorage.setItem('usertoken', token)
+                    })
+                    .then(res => {
+                        this.testToast = res.data.message
+                    })
+                    .then(res => {
+                        setTimeout( this.pushToLogin, 4000)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        const error = err.response?.data.message ? err.response.data.message : err.message
+                        this.testToast = error
+                    })
+                }
             },
             handleInput(value){
-                value.type=='password'
+                value.name=='password'
                 ?this.inputFieldData[1].value=value.data
                 :this.inputFieldData[0].value=value.data
+            },
+            pushToLogin(){
+                router.push('/menu')
             }
 
         }
@@ -130,5 +165,8 @@ color: #000000;
 }
 .auth-alternate-text{
  justify-content: space-between;
+}
+.auth-alternate-text{
+    margin-top: 40px;
 }
 </style>

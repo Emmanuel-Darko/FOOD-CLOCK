@@ -1,0 +1,6 @@
+PORT=6060
+DB_HOST=localhost
+DB_USER=killer
+DB_AUTH=''
+DB_NAME= food-app
+SECRETE_KEY=12772729

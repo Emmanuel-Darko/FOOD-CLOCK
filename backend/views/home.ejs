@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document2</title>
+    <style>
+        .flexfield{
+            display: flex;
+             flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+        }
+        .flexfield.input{
+            align-items: 
+            flex-start;
+        }
+        .input input{
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <center class="flexfield" style="gap: 2rem;">
+        <div>
+
+            This is our home page.<br />
+            Welcome <h1> <%=data.email%> </h1>, to our home page.
+            <h2>User role is <%=data.roles%></h2>
+        </div>
+            <form action="/" method="post" style="gap: 1rem; " class="flexfield">
+            <div class="flexfield input" style="align-items: flex-start;">
+                <label for="meal_name">Meal Name</label>
+                <input type="text" id="meal_name" name="meal_name" placeholder="Meal Name">
+            </div>
+          
+            
+            <div class="flexfield input" >
+                <label for="meal_type">Meal Type</label>
+                <input type="text" id="meal_type" name="meal_type" placeholder="Meal Type">
+            </div>
+
+            <div class="flexfield input">
+                <label for="meal_date">Meal Date</label>
+                <input type="date" id="meal_date" name="meal_date" placeholder="Meal Date">
+            </div class="flexfield input">
+            <div class="flexfield input">
+                <label for="meal_code">Meal Code</label>
+                <input type="number" id="meal_code" name="meal_code" placeholder="Meal code">
+            </div>
+            
+        </form>
+        
+        
+    </center>
+</body>
+</html>

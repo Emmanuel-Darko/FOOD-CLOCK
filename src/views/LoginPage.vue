@@ -1,10 +1,11 @@
 <template>
         <div class="auth-page flex-center">
-            <header class="auth-page-header flex-center">
-            <span></span>
-
-            <h1>Login</h1>
-            <router-link to="/login">Sign Up</router-link>
+        <header class="auth-page-header flex-center">
+            <!-- <span></span> -->
+            <div class="header-text">
+                <h3>Login</h3>
+                <router-link to="/signup">Sign Up</router-link>
+            </div>
 
         </header>
         <img class="auth-logo" src="/images/homeLogo.png"/>
@@ -94,7 +95,7 @@ import router from '@/router'
                     password: this.inputFieldData[1].value
                 }
 
-                if(user.email == '' && user.password == ''){
+                if(user.email == '' || user.password == ''){
                     return this.testToast = 'Input fields cannot be empty'
                 }
 
@@ -102,18 +103,18 @@ import router from '@/router'
                     axios.post('http://192.168.1.53:3000/auth/login', user)
                     .then(res => {
                         console.log(res)
-                        const token = res.data.token
+                        const token = res?.data.token
                         localStorage.setItem('usertoken', token)
                     })
                     .then(res => {
-                        this.testToast = res.data.message
+                        this.testToast = res?.data.message
                     })
-                    .then(()=> {
+                    .then(() => {
                         setTimeout( this.pushToLogin, 4000)
                     })
                     .catch(err => {
                         console.log(err)
-                        const error = err.response?.data.message ? err.response.data.message : err.message
+                        const error = err.response?.data.message ? err.response?.data.message : err.message
                         this.testToast = error
                     })
                 }
@@ -132,7 +133,7 @@ import router from '@/router'
 </script>
 
 <style lang="css" scoped>
-/* .auth-page-header{
+.auth-page-header{
     position: relative;
     height: 100px;
     margin-top: 50px
@@ -145,13 +146,13 @@ import router from '@/router'
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center; */
+    align-items: center;
     /* background-color: blue; */
-/* } */
-/* .main{
+}
+.main{
     margin-top: 35px;
-} */
-/* .input-container{
+}
+.input-container{
     margin-bottom: 30px;
 }
 .header-text a{
@@ -167,5 +168,5 @@ color: #000000;
 }
 .auth-alternate-text{
     margin-top: 40px;
-} */
+}
 </style>

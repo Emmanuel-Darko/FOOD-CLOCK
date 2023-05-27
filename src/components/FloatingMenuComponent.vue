@@ -47,24 +47,32 @@ export default {
     align-items: flex-end;
     /* background: #000; */
 
+
 }
 .floating-menu-container ul{
     list-style:  none;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
     /* background: #7a2929; */
-    padding: 0;
+    padding:0px 5px;
     margin: 0;
     margin-bottom:10px ;
     transition: all .3s ease-in-out;
     overflow: hidden;
     animation: menu-animate-f 1s linear forwards;
+    border-radius: 2px;
+background: #E3E9D1;
+box-shadow: inset -2px -2px 3px #b6baa7,
+            inset 2px 2px 3px #fffffb;
 }
 
 .floating-menu-container ul li{
     display: block;
-    width: 80px;
+    width: 100%;
     color: #5DB075;
+    cursor: pointer;
 }
 
 .floating-menu-container ul li:hover{
@@ -73,6 +81,7 @@ export default {
 .floating-menu-container ul.active{
     animation: menu-animate 1s linear forwards;
     transition: all .3s ease-in-out;
+  
 }
 @keyframes menu-animate {
     0% {height: 90px;}
@@ -99,7 +108,11 @@ export default {
     cursor: pointer;
     padding: 0;
     transition: all .3s ease-in-out;
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.616);
+    /* box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.616); */
+    border-radius: 2px;
+background: #E3E9D1;
+box-shadow: inset -2px -2px 3px #b6baa7,
+            inset 2px 2px 3px #fffffb;
     z-index: 999;
 }
 

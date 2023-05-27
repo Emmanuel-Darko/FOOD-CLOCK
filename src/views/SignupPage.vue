@@ -36,7 +36,7 @@
                 
                 
             </form>
-            <ToastComponent :message="testToast"/>
+            <ToastComponent :message="toastMessage" :showMessage='showMessage' />
         </main>
 
     </div>
@@ -46,7 +46,7 @@
 import axios from 'axios'
 import InputField from '../components/InputField.vue';
 import ToastComponent from '@/components/ToastComponent.vue'
-import router from '@/router'
+// import router from '@/router'
     export default {
         components:{
             InputField,
@@ -55,7 +55,8 @@ import router from '@/router'
         data(){
             return{
                 inputActive:false,
-                testToast: '',
+                toastMessage: '',
+                showMessage:false,
                 inputFieldData:[
                     {
                         type:'email',
@@ -84,6 +85,7 @@ import router from '@/router'
                 ]
             }
         },
+       
         methods:{
             toggleShowPassword(){
                 this.inputFieldData[1].type = this.inputFieldData[1].type == 'text' ? 'password' : 'text'
@@ -98,29 +100,43 @@ import router from '@/router'
                     item.fieldActive = false
                 })
             },
+            handleToast(message){   
+                this.toastMessage=message      
+                this.showMessage = true
+                setTimeout(this.setAlertTimeout, 2000)
+            },
+            setAlertTimeout(){
+                this.showMessage = false
+                this.toastMessage=''
+            },
             handleSignUp(){
                 const newUser = {
                     email: this.inputFieldData[0].value,
                     password: this.inputFieldData[1].value
-                }
+                }   
                 const checkPass = this.inputFieldData[1].value !== this.inputFieldData[2].value
-                if(checkPass)
-                    return this.testToast = 'Password mismatch'
 
-                if(!checkPass && newUser.email !== '' && newUser.password !== ''){
+                if(checkPass){
+                    this.handleToast('Password mismatch') 
+                    return 
+                }
+
+                else if(newUser.email !== '' && newUser.password !== ''){
+                    // console.log(newUser);
                     axios.post('http://192.168.1.53:3000/auth/signup', newUser)
-                    .then((res) =>{
-                        this.testToast = 'Success, redirecting to login'
+                    .then(() =>{
+                        this.handleToast('Success, redirecting to login') 
                     })
-                    .then(res => {
-                        setTimeout(this.pushToLogin, 4000)
+                    .then(() => {
+                        setTimeout(this.pushToLogin, 2000)
                     })
                     .catch(err => {
-                        this.testToast = err.response.data.message
+                        // console.log(err);
+                        this.handleToast(err.response?.data?.message)
                     })
                 }
                 else{
-                    this.testToast = 'Input fields cannot be empty!'
+                    this.handleToast('Input fields cannot be empty!') 
                 }
             },
             handleInput(value){
@@ -133,15 +149,9 @@ import router from '@/router'
                 if(value.name=='confirmPassword'){
                     this.inputFieldData[2].value=value.data
                 }
-
-                // value.type=='email'
-                // ?this.inputFieldData[0].value=value.data
-                // :value.name=='confirmPassword'
-                // ?this.inputFieldData[2].value=value.data
-                // :this.inputFieldData[1].value=value.data
             },
             pushToLogin(){
-                router.push('/login')
+                this.$router.push('/login')
             }
         }
     }

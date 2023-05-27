@@ -77,6 +77,7 @@ width: 300px;
 .dropdown-menu .input-fields{
     height: 0px;
     overflow: hidden;
+    transition: height .3s ease-in-out;
  
 }
 

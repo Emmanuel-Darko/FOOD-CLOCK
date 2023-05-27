@@ -1,23 +1,31 @@
 <template>
     <div class="admin-input-list flex-center">
-        <input type="text" placeholder="Breakfast">
-        <input type="text" placeholder="Lunch">
-        <input type="text" placeholder="Dinner">
-        <button class="menu-save-btn btn">{{ buttonText }}</button>
+        <input type="text" placeholder="Breakfast" v-model="localMenu.breakfast">
+        <input type="text" placeholder="Lunch" v-model="localMenu.lunch">
+        <input type="text" placeholder="Dinner" v-model="localMenu.dinner">
+        <button @click="() => saveMenu(buttonText)" class="menu-save-btn btn">{{ buttonText }}</button>
     </div>
 </template>
 
 <script>
 export default {
     name: 'FoodClockMenuInputField',
-
+    
     data() {
         return {
-            
+            localMenu: {
+                breakfast: '',
+                lunch: '',
+                dinner: ''
+            }
         };
     },
     props:[
-       'buttonText'
+       'buttonText',
+       'breakfast',
+       'lunch',
+       'dinner',
+       'menu'
     ],
 
     mounted() {
@@ -25,7 +33,16 @@ export default {
     },
 
     methods: {
-        
+        saveMenu(buttonText){
+            this.menu.breakfast = this.localMenu.breakfast
+            this.menu.lunch = this.localMenu.lunch
+            this.menu.dinner = this.localMenu.dinner
+            if(buttonText == 'Submit')
+                this.submit()
+        },
+        submit(){
+            this.$emit('submitMenu')
+        }
     },
 };
 </script>

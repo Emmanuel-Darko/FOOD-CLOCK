@@ -35,6 +35,7 @@ import FloatingMenuComponentVue from '../components/FloatingMenuComponent.vue';
 import ActionButtonContainer from '../components/ActionButtonContainer.vue';
 import router from '@/router'
 import axios from 'axios'
+// const BASE_URL = process.env.VITE_BASE_URL
 export default {
     components: {
         FloatingMenuComponentVue,

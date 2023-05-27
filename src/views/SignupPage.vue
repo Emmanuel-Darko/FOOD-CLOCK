@@ -110,6 +110,8 @@ import ToastComponent from '@/components/ToastComponent.vue'
                 this.toastMessage=''
             },
             handleSignUp(){
+                // const BASE_URL = import.meta.env.VITE_BASE_URL
+
                 const newUser = {
                     email: this.inputFieldData[0].value,
                     password: this.inputFieldData[1].value

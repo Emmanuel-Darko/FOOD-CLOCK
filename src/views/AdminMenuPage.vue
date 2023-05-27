@@ -7,7 +7,7 @@
             </span>
         </header>
 
-        <UpdateMealComponent v-if="updateActive" :mealType="updateMeal.mealType" :icon="updateMeal.icon" :toggleEditePage="toggleEditMealPAge"/>
+        <!-- <UpdateMealComponent v-if="updateActive" :mealType="updateMeal.mealType" :icon="updateMeal.icon" :toggleEditePage="toggleEditMealPAge"/> -->
 
         <main class="flex-center" v-if="!updateActive">
             <img class="menu-logo" src="/images/menuLogo.svg" alt="menu logo">

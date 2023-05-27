@@ -2,7 +2,7 @@
     <div class="container flex-center">
         <Transition name="bounce">
             <div v-show="showMessage">
-                {{ toastMessage }}
+                {{ message&&message }}
             </div>
         </Transition>
     </div>
@@ -11,32 +11,9 @@
 <script>
     export default {
         props:[
-            "message"
+            "message",
+            "showMessage"
         ],
-        data(){
-            return{
-                toastMessage: '',
-                showMessage: false
-                
-            }
-        },
-        watch:{
-            message: function(newValue, oldValue){
-                if(newValue !== oldValue){
-                    this.toastMessage = newValue
-                    this.handleShowAlert()
-                }
-            }
-        },
-        methods: {
-            handleShowAlert(){
-                this.showMessage = true
-                setTimeout(this.setAlertTimeout, 4000)
-            },
-            setAlertTimeout(){
-                this.showMessage = false
-            }
-        }
     }
 </script>
 
@@ -76,7 +53,7 @@
         height: 100%;
         /* background-color: red; */
         z-index: -1;
-        animation: toastAnimation 4s ease-in-out forwards;
+        animation: toastAnimation 2s ease-in-out forwards;
     }
     @keyframes toastAnimation{
         0%{width: 0%; background-color: rgba(255, 0, 0, 0.55);}

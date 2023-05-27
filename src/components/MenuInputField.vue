@@ -3,7 +3,7 @@
         <input type="text" placeholder="Breakfast">
         <input type="text" placeholder="Lunch">
         <input type="text" placeholder="Dinner">
-        <button class="menu-save-btn">{{ buttonText }}</button>
+        <button class="menu-save-btn btn">{{ buttonText }}</button>
     </div>
 </template>
 
@@ -37,14 +37,18 @@ export default {
 }
 
 .admin-input-list input{
-    background: #D5DBC9;
-border-radius: 8px;
-height: 50px;
-width: 256px;
-border:none;
-outline: #D5DBC9;
-padding-left: 16px;
+    height: 50px;
+    width: 256px;
+    border:none;
+    outline: #D5DBC9;
+    padding-left: 16px;
+    border: 0.5px solid #5DB075;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #f3f9e0, #ccd2bc);
+    box-shadow:  2px 2px 5px #c3c8b4,
+             -2px -2px 5px #ffffee;
 }
+
 .admin-input-list input::placeholder{
     font-weight: 500;
     font-size: 16px;

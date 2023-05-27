@@ -36,7 +36,7 @@
                         
                     </p>
             </form>
-            <ToastComponent :message="testToast"/>
+            <ToastComponent :message="toastMessage" :showMessage="showMessage"/>
         </main>
     </div>
 </template>
@@ -49,12 +49,14 @@ import router from '@/router'
     export default {
         components:{
             InputField,
-            ToastComponent
+            ToastComponent,
+          
         },
         data(){
             return{
                 inputActive:false,
-                testToast: '',
+                toastMessage: '',
+                showMessage:false,
                 inputFieldData:[
                     {
                         type:'email',
@@ -89,33 +91,44 @@ import router from '@/router'
                     item.fieldActive = false
                 })
             },
+            handleToast(message){   
+                this.toastMessage=message      
+                this.showMessage = true
+                setTimeout(this.setAlertTimeout, 2000)
+            },
+            setAlertTimeout(){
+                this.showMessage = false
+                this.toastMessage=''
+            },
+
             handleLogin(){
                 const user = {
                     email: this.inputFieldData[0].value,
                     password: this.inputFieldData[1].value
                 }
 
-                if(user.email == '' || user.password == ''){
-                    return this.testToast = 'Input fields cannot be empty'
+                if(user.email == ''|| user.password == ''){
+                    this.handleToast('Input fields cannot be empty')
+                    return 
                 }
 
                 if(user.email && user.password){
                     axios.post('http://192.168.1.53:3000/auth/login', user)
                     .then(res => {
                         console.log(res)
-                        const token = res?.data.token
-                        localStorage.setItem('usertoken', token)
-                    })
-                    .then(res => {
-                        this.testToast = res?.data.message
+                        const token = res?.data?.token
+                        if(token){
+                            localStorage.setItem('usertoken', token)
+                            this.handleToast(res.data?.message)
+                        }
                     })
                     .then(() => {
-                        setTimeout( this.pushToLogin, 4000)
+                        setTimeout( this.pushToLogin, 2000)
                     })
                     .catch(err => {
-                        console.log(err)
-                        const error = err.response?.data.message ? err.response?.data.message : err.message
-                        this.testToast = error
+                        console.log("error",err)
+                        const error = err?.response?.data.message? err?.response?.data.message : err?.message
+                        this.handleToast( error)
                     })
                 }
             },

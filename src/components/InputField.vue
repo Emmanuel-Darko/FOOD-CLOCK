@@ -57,10 +57,25 @@ export default {
     width: 100%;
     position: relative;
     width: 343px;
-    padding:16px 20px;
+    border-radius: 5px;
+background: #E3E9D1;
+box-shadow: inset 5px 5px 10px #c3c8b4,
+            inset -5px -5px 10px #ffffee;
+   
+
 }
 .input-field.active{
     border: 0.5px solid #5DB075;
+    border-radius: 6px;
+    background: linear-gradient(145deg, #f3f9e0, #ccd2bc);
+    box-shadow:  5px 5px 10px #c3c8b4,
+             -5px -5px 10px #ffffee;
+}
+.input-field.active input{
+    border-radius: 6px;
+    background: linear-gradient(145deg, #ccd2bc, #f3f9e0);
+    box-shadow:  6px 6px 5px #b6baa7,
+                -6px -6px 5px #fffffb;
 }
 .legendText.active{
     color: #348a4c;
@@ -80,8 +95,8 @@ export default {
     outline:none;
     flex:1;
     width:100%;
-    height: 24px;
- /* background: #000; */
+    height: 100%;
+    padding:16px 20px;
 }
 .input-field .noshow{
     display: none;

@@ -58,8 +58,11 @@
 
 .menu-list{
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
     row-gap: 13px;
+    /* background: #000; */
+    height: 50vh;
 
 }
 
@@ -73,6 +76,10 @@
     border-radius: 6px;
     position: relative;
     text-align: center;
+    border-radius: 5px;
+background: #AABB85;
+box-shadow: inset -5px -5px 11px #707b58,
+            inset 5px 5px 11px #e4fbb2;
 }
 .menu-item h4{
     margin: 0;

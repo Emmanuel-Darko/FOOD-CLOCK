@@ -1,17 +1,11 @@
 <template>
     <div class="menu-input-card flex-center">
             <div v-for="(day,index) in weekMenuInputList" :key="index" class="dropdown-menu flex-center">
-
                 <div  v-on:click="()=>toggleDropDown(index)" class="flex-center menu-day" :class="{active:day.open}">
                     {{ day.name }} <img src="/images/arrow.svg" alt=""> 
                 </div>
 
-
-
-                <MenuInputField  class="input-fields" :class="{active:day.open}" :buttonText="day.btn"/>
-
-
-
+                <MenuInputField  class="input-fields" :class="{active:day.open}" :buttonText="day.btn" :inputId="index" />
             </div>
     </div>
 </template>
@@ -39,14 +33,14 @@ export default {
         };
     },
 
-    mounted() {
-        
-        
-    },
+   props:[
+    // 'handleUpadteMenu'
+   ],
     methods: {
         toggleDropDown(index){
             this.weekMenuInputList.map((item,i)=>(i===index?item.open=!item.open:item.open=false))
-        }
+        },
+      
     },
 };
 </script>

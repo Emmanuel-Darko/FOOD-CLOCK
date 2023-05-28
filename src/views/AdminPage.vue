@@ -4,7 +4,7 @@
             <img class="menu-logo" src="/images/menuLogo.svg" alt="menu logo">
             
             <div class="menu-list flex-center">
-                <MenuInputCard/>
+                <MenuInputCard />
             </div>
 
         </main>

@@ -1,9 +1,9 @@
 <template>
-    <div class="admin-input-list flex-center">
-        <input type="text" placeholder="Breakfast">
-        <input type="text" placeholder="Lunch">
-        <input type="text" placeholder="Dinner">
-        <button class="menu-save-btn btn">{{ buttonText }}</button>
+    <div class="admin-input-list flex-center" >
+        <input type="text"  placeholder="Breakfast" name="breakfast" v-model="bf" v-on:change="saveMenuItem({name:'breakfast',value:bf})">
+        <input type="text" placeholder="Lunch" name="lunch" v-model="lh" v-on:change="saveMenuItem({name:'lunch',value:lh})">
+        <input type="text" placeholder="Dinner" name="dinner" v-model='din' v-on:change="saveMenuItem({name:'dinner',value:din})">
+        <button class="menu-save-btn btn " @click="handleSaveMenu">{{ buttonText }}</button>
     </div>
 </template>
 
@@ -13,11 +13,15 @@ export default {
 
     data() {
         return {
+
             
         };
     },
     props:[
-       'buttonText'
+       'buttonText',
+       'handleSaveMenu',
+       'inputId'
+
     ],
 
     mounted() {
@@ -25,6 +29,9 @@ export default {
     },
 
     methods: {
+        saveMenuItem(){
+            
+        }
         
     },
 };

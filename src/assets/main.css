@@ -86,6 +86,11 @@ body{
   width: 100%;
   transition: all .3s ease-in-out;
 }
+
+.auth-logo{
+  width: 150px;
+  color: #000000;
+  }
 .auth-page-header{
   /* font-family: 'Inter'; */
   font-style: normal;
@@ -130,6 +135,7 @@ body{
 .auth-alternate-text a:hover{
   color:#348a4c;
 }
+
 /* @media (min-width: 1024px) {
   body {
    flex-direction: row;

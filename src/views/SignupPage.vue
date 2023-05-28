@@ -9,7 +9,7 @@
             
 
         </header>
-        <img class="auth-logo" src="/images/homeLogo.png"/>
+        <img class="auth-logo" src="/images/homeLogo.svg"/>
         <main class="main">
             <form @submit.prevent="handleSignUp" class="page-form auth-form">
 
@@ -184,9 +184,6 @@ import ToastComponent from '@/components/ToastComponent.vue'
     margin-bottom: 30px;
 }
 
-.auth-logo{
-width: 100px;
-}
 .auth-alternate-text{
  justify-content: space-between;
 }

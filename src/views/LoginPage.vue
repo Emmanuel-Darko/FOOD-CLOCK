@@ -8,7 +8,7 @@
             </div>
 
         </header>
-        <img class="auth-logo" src="/images/homeLogo.png"/>
+        <img class="auth-logo" src="/images/homeLogo.svg"/>
         <main class="main">
             <form  @submit.prevent="handleLogin" class="page-form auth-form">
 
@@ -173,10 +173,7 @@ import router from '@/router'
     display: absolute;
     right: 0
 }
-.auth-logo{
-width: 100px;
-color: #000000;
-}
+
 .auth-alternate-text{
  justify-content: space-between;
 }

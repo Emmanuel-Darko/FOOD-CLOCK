@@ -1,7 +1,7 @@
 <template>
     <main class="landing-page flex-center">
 
-        <img class="home-logo" src="/images/homeLogo.png" alt="food-clock logo">
+        <img class="home-logo" src="/images/homeLogo.svg" alt="food-clock logo">
 
 
         <router-link to="/signup">

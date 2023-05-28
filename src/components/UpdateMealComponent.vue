@@ -6,8 +6,9 @@
                 <img :src="icon" alt="meal icon">
                 <p>{{ mealType }}</p>
             </div>
-            <input  type="text" placeholder="enter meal update">
-            <button v-on:click="handleUpdateMeal" class="update-meal-btn">Save</button>
+            <input type="text" placeholder="enter meal update" v-model="localMealInput">
+            <button v-on:click="handleUpdateMeal()" class="update-meal-btn">Save</button>
+
         </div>
         
     </div>
@@ -20,13 +21,14 @@ export default {
 
     data() {
         return {
-            
+            localMealInput: ''
         };
     },
     props:[
         'mealType',
         'icon',
-        'toggleEditePage'
+        'toggleEditePage',
+        'updateOne'
     ],
     mounted() {
         
@@ -34,8 +36,9 @@ export default {
 
     methods: {
         handleUpdateMeal(){
-            this.toggleEditePage()
-
+            // this.mealInput = this.localMealInput
+            this.updateOne(this.localMealInput)
+            // this.toggleEditePage()
             // router.path('/success')
         }
         

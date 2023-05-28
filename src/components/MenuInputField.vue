@@ -1,27 +1,31 @@
 <template>
-    <div class="admin-input-list flex-center" >
-        <input type="text"  placeholder="Breakfast" name="breakfast" v-model="bf" v-on:change="saveMenuItem({name:'breakfast',value:bf})">
-        <input type="text" placeholder="Lunch" name="lunch" v-model="lh" v-on:change="saveMenuItem({name:'lunch',value:lh})">
-        <input type="text" placeholder="Dinner" name="dinner" v-model='din' v-on:change="saveMenuItem({name:'dinner',value:din})">
-        <button class="menu-save-btn btn " @click="handleSaveMenu">{{ buttonText }}</button>
+    <div class="admin-input-list flex-center">
+        <input type="text" placeholder="Breakfast" v-model="localMenu.breakfast">
+        <input type="text" placeholder="Lunch" v-model="localMenu.lunch">
+        <input type="text" placeholder="Dinner" v-model="localMenu.dinner">
+        <button @click="() => saveMenu(buttonText)" class="menu-save-btn btn">{{ buttonText }}</button>
     </div>
 </template>
 
 <script>
 export default {
     name: 'FoodClockMenuInputField',
-
+    
     data() {
         return {
-
-            
+            localMenu: {
+                breakfast: '',
+                lunch: '',
+                dinner: ''
+            }
         };
     },
     props:[
        'buttonText',
-       'handleSaveMenu',
-       'inputId'
-
+       'breakfast',
+       'lunch',
+       'dinner',
+       'menu'
     ],
 
     mounted() {
@@ -29,10 +33,16 @@ export default {
     },
 
     methods: {
-        saveMenuItem(){
-            
+        saveMenu(buttonText){
+            this.menu.breakfast = this.localMenu.breakfast
+            this.menu.lunch = this.localMenu.lunch
+            this.menu.dinner = this.localMenu.dinner
+            if(buttonText == 'Submit')
+                this.submit()
+        },
+        submit(){
+            this.$emit('submitMenu')
         }
-        
     },
 };
 </script>

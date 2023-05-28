@@ -102,6 +102,7 @@ import router from '@/router'
             },
 
             handleLogin(){
+                // const BASE_URL = import.meta.env.VITE_BASE_URL
                 const user = {
                     email: this.inputFieldData[0].value,
                     password: this.inputFieldData[1].value

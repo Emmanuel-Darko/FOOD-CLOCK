@@ -4,7 +4,7 @@
             <img class="menu-logo" src="/images/menuLogo.svg" alt="menu logo">
             
             <div class="menu-list flex-center">
-                <MenuInputCard />
+                <MenuInputCard :menu="menu" @submitMenu="submitMenu()"/>
             </div>
 
         </main>
@@ -13,7 +13,7 @@
 
 <script>
 import MenuInputCard from '../components/MenuInputCard.vue';
-    
+import axios from 'axios'
 export default {
   components: { MenuInputCard },
     name: 'FoodClockAdminPage',
@@ -21,7 +21,15 @@ export default {
 
     data() {
         return {
-            
+            menu:[
+                {day: 'monday', breakfast: '', lunch: '', dinner: ''},
+                {day: 'tuesday', breakfast: '', lunch: '', dinner: ''},
+                {day: 'wednesday', breakfast: '', lunch: '', dinner: ''},
+                {day: 'thursday', breakfast: '', lunch: '', dinner: ''},
+                {day: 'friday', breakfast: '', lunch: '', dinner: ''},
+                {day: 'saturday', breakfast: '', lunch: '', dinner: ''},
+                {day: 'sunday', breakfast: '', lunch: '', dinner: ''},
+            ]
         };
     },
 
@@ -30,7 +38,16 @@ export default {
     },
 
     methods: {
-        
+        submitMenu(){
+            const token = localStorage.getItem('usertoken')
+            axios.put('http://192.168.1.53:3000/menu', this.menu, {headers: {token: token}})
+            .then(res => {
+                console.log(res);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
     },
 };
 </script>

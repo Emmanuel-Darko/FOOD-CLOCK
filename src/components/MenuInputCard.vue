@@ -5,7 +5,17 @@
                     {{ day.name }} <img src="/images/arrow.svg" alt=""> 
                 </div>
 
-                <MenuInputField  class="input-fields" :class="{active:day.open}" :buttonText="day.btn" :inputId="index" />
+
+
+                <MenuInputField  class="input-fields" 
+                    :class="{active:day.open}" 
+                    :buttonText="day.btn"
+                    :menu="menu[index]"
+                    @submitMenu="$emit('submitMenu')"
+                />
+
+
+
             </div>
     </div>
 </template>
@@ -15,7 +25,9 @@ import MenuInputField from './MenuInputField.vue';
 export default {
   components: { MenuInputField },
     name: 'FoodClockMenuInputCard',
-
+    props:[
+        'menu'
+    ],
     data() {
         return {
             dropdown:false,
@@ -27,9 +39,7 @@ export default {
                 {name:"Friday", btn: "Save",open:false},
                 {name:"Saturday" ,btn:"Save",open:false},
                 {name:"Sunday", btn:"Submit",open:false}
-            ]
-
-            
+            ]            
         };
     },
 
